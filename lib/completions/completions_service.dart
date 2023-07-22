@@ -23,7 +23,7 @@ class CompletionsService {
   }) async {
 
     Map<String, String> headers = {
-      "Authorization": apiKey,
+      "Authorization": "Bearer $apiKey",
       "OpenAI-Organization": organizationId,
       'Content-Type': 'application/json',
       "Access-Control-Allow-Origin": "*", // Required for CORS support to work
