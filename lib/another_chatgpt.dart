@@ -7,7 +7,7 @@ import 'package:another_chatgpt/completions/completions_service.dart';
 import 'package:another_chatgpt/models/models_dto.dart';
 import 'package:another_chatgpt/models/models_service.dart';
 
-class ChatGptClient {
+class GptClient {
   final String _baseUrl;
   final String _apiKey;
   final String _organizationId;
@@ -17,7 +17,7 @@ class ChatGptClient {
   late ChatsService _chatsService;
   late CompletionsService _completionsService;
 
-  ChatGptClient(
+  GptClient(
       {required String apiKey,
       required String organizationId,
       String baseUrl = "api.openai.com"})
