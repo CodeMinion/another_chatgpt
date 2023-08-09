@@ -44,7 +44,8 @@ class CompletionsService {
     http.post(endpoint, headers: headers, body:jsonEncode(request.toJson()));
 
     if (response.statusCode == 200 || response.statusCode == 201) {
-      return GptCompletion.fromJson(jsonDecode(response.body));
+      //return GptCompletion.fromJson(jsonDecode(response.body));
+      return GptCompletion.fromJson(jsonDecode(const Utf8Decoder().convert(response.bodyBytes)));
     }
     else {
       var error = ServerError.fromJson(jsonDecode(response.body));

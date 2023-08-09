@@ -1,6 +1,6 @@
 name: another_chatgpt
 description: Package for interacting with the chatGpt APIs
-version: 0.0.1
+version: 1.0.0
 homepage:
 
 environment:
