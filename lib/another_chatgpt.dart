@@ -39,8 +39,8 @@ class GptClient {
     String? organizationId,
   }) async {
     return _modelsService.getModels(
-        apiKey: apiKey ?? _apiKey ?? "",
-        organizationId: organizationId ?? _organizationId ?? "");
+        apiKey: apiKey ?? _apiKey,
+        organizationId: organizationId ?? _organizationId);
   }
 
   ///
@@ -53,8 +53,8 @@ class GptClient {
     required String modelId,
   }) async {
     return _modelsService.getModelById(
-        apiKey: apiKey ?? _apiKey ?? "",
-        organizationId: organizationId ?? _organizationId ?? "",
+        apiKey: apiKey ?? _apiKey,
+        organizationId: organizationId ?? _organizationId,
         modelId: modelId);
   }
 
@@ -66,8 +66,8 @@ class GptClient {
     String? organizationId,
     required GptChatCompletionRequest request,
   }) async {
-    return _chatsService.createChatCompletion(apiKey: apiKey ?? _apiKey ?? "",
-        organizationId: organizationId ?? _organizationId ?? "", request: request);
+    return _chatsService.createChatCompletion(apiKey: apiKey ?? _apiKey,
+        organizationId: organizationId ?? _organizationId, request: request);
   }
 
   ///
@@ -78,7 +78,7 @@ class GptClient {
     String? organizationId,
     required GptCompletionRequest request,
   }) async {
-    return _completionsService.createCompletion(apiKey: apiKey ?? _apiKey ?? "",
-        organizationId: organizationId ?? _organizationId ?? "", request: request);
+    return _completionsService.createCompletion(apiKey: apiKey ?? _apiKey,
+        organizationId: organizationId ?? _organizationId, request: request);
   }
 }

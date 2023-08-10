@@ -1,10 +1,4 @@
-import 'package:another_chatgpt/app_keys.dart';
-import 'package:another_chatgpt/chat_service.dart/chats_dto.dart';
-import 'package:another_chatgpt/completions/completions_dto.dart';
-import 'package:another_chatgpt/models/models_dto.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:another_chatgpt/another_chatgpt.dart';
 
 void main() {
   test('adds one to input values', () async {
