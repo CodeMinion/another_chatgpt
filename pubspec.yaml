@@ -1,7 +1,7 @@
 name: another_chatgpt
-description: Package for interacting with the chatGpt APIs
+description: Package for interacting with the OpenAI APIs
 version: 1.0.0
-homepage:
+homepage: https://github.com/CodeMinion/another_chatgpt
 
 environment:
   sdk: '>=3.0.6 <4.0.0'
