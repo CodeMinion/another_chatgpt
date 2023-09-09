@@ -4,6 +4,8 @@ import 'package:another_chatgpt/chat_service.dart/chats_dto.dart';
 import 'package:another_chatgpt/chat_service.dart/chats_service.dart';
 import 'package:another_chatgpt/completions/completions_dto.dart';
 import 'package:another_chatgpt/completions/completions_service.dart';
+import 'package:another_chatgpt/images/image_dto.dart';
+import 'package:another_chatgpt/images/image_service.dart';
 import 'package:another_chatgpt/models/models_dto.dart';
 import 'package:another_chatgpt/models/models_service.dart';
 
@@ -16,6 +18,7 @@ class GptClient {
   late ModelsService _modelsService;
   late ChatsService _chatsService;
   late CompletionsService _completionsService;
+  late ImagesService _imagesService;
 
   GptClient(
       {required String apiKey,
@@ -24,9 +27,10 @@ class GptClient {
       : _baseUrl = baseUrl,
         _apiKey = apiKey,
         _organizationId = organizationId {
-    _modelsService = ModelsService(baseUrl: baseUrl, secure: _secured);
-    _chatsService = ChatsService(baseUrl: baseUrl, secure: _secured);
-    _completionsService = CompletionsService(baseUrl: baseUrl, secure: _secured);
+    _modelsService = ModelsService(baseUrl: _baseUrl, secure: _secured);
+    _chatsService = ChatsService(baseUrl: _baseUrl, secure: _secured);
+    _completionsService = CompletionsService(baseUrl: _baseUrl, secure: _secured);
+    _imagesService = ImagesService(baseUrl: _baseUrl, secure: _secured);
   }
 
   ///
@@ -79,6 +83,17 @@ class GptClient {
     required GptCompletionRequest request,
   }) async {
     return _completionsService.createCompletion(apiKey: apiKey ?? _apiKey,
+        organizationId: organizationId ?? _organizationId, request: request);
+  }
+
+  ///// Images
+
+  Future<List<GptImage>> createImage({
+    String? apiKey,
+    String? organizationId,
+    required ImageCreateRequest request,
+  }) async {
+    return _imagesService.createImage(apiKey: apiKey ?? _apiKey,
         organizationId: organizationId ?? _organizationId, request: request);
   }
 }
