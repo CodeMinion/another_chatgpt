@@ -7,3 +7,6 @@
 ## 2.0.0
 * Renames chat_service folder.
 
+## 3.0.0
+* Renames chat_service folder to chats.
+

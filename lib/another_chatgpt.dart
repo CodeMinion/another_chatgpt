@@ -1,7 +1,7 @@
 library another_chatgpt;
 
-import 'package:another_chatgpt/chat_service/chats_dto.dart';
-import 'package:another_chatgpt/chat_service/chats_service.dart';
+import 'package:another_chatgpt/chats/chats_dto.dart';
+import 'package:another_chatgpt/chats/chats_service.dart';
 import 'package:another_chatgpt/completions/completions_dto.dart';
 import 'package:another_chatgpt/completions/completions_service.dart';
 import 'package:another_chatgpt/images/image_dto.dart';
