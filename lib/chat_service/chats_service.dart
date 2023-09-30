@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:another_chatgpt/error_models.dart';
 import 'package:http/http.dart' as http;
 
-import 'package:another_chatgpt/chat_service.dart/chats_dto.dart';
+import 'package:another_chatgpt/chat_service/chats_dto.dart';
 import 'package:another_chatgpt/completions/completions_dto.dart';
 
 class ChatsService {
