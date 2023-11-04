@@ -66,6 +66,41 @@ const _$ResponseFormatEnumMap = {
   ResponseFormat.b64Json: 'b64_json',
 };
 
+Map<String, dynamic> _$ImageEditRequestToJson(ImageEditRequest instance) {
+  final val = <String, dynamic>{
+    'prompt': instance.prompt,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('n', instance.n);
+  val['size'] = _$ImageSizeEnumMap[instance.size]!;
+  val['response_format'] = _$ResponseFormatEnumMap[instance.responseFormat]!;
+  writeNotNull('user', instance.user);
+  return val;
+}
+
+Map<String, dynamic> _$ImageVariationRequestToJson(
+    ImageVariationRequest instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('n', instance.n);
+  val['size'] = _$ImageSizeEnumMap[instance.size]!;
+  val['response_format'] = _$ResponseFormatEnumMap[instance.responseFormat]!;
+  writeNotNull('user', instance.user);
+  return val;
+}
+
 GptImageResponse _$GptImageResponseFromJson(Map<String, dynamic> json) =>
     GptImageResponse(
       data: (json['data'] as List<dynamic>)

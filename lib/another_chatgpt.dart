@@ -96,4 +96,29 @@ class GptClient {
     return _imagesService.createImage(apiKey: apiKey ?? _apiKey,
         organizationId: organizationId ?? _organizationId, request: request);
   }
+
+  ///
+  /// Creates an edited or extended image given an original image and a prompt.
+  ///
+  Future<List<GptImage>> createImageEdit({
+    String? apiKey,
+    String? organizationId,
+    required ImageEditRequest request,
+  }) async {
+    return _imagesService.createImageEdit(apiKey: apiKey ?? _apiKey,
+        organizationId: organizationId ?? _organizationId, request: request);
+  }
+
+  ///
+  /// Creates a variation of a given image.
+  ///
+  Future<List<GptImage>> createImageVariation({
+    String? apiKey,
+    String? organizationId,
+    required ImageVariationRequest request,
+  }) async {
+    return _imagesService.createImageVariation(apiKey: apiKey ?? _apiKey,
+        organizationId: organizationId ?? _organizationId, request: request);
+
+  }
 }

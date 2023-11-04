@@ -10,3 +10,6 @@
 ## 3.0.0
 * Renames chat_service folder to chats.
 
+## 3.1.0
+* Adds support for image edits and variations.
+
