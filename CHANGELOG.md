@@ -16,3 +16,6 @@
 ## 3.1.1
 * Exposes model param for image generation.
 
+## 3.1.2
+* Exposes style param for image generation.
+

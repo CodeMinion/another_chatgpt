@@ -35,11 +35,14 @@ ImageCreateRequest _$ImageCreateRequestFromJson(Map<String, dynamic> json) =>
               _$ResponseFormatEnumMap, json['response_format']) ??
           ResponseFormat.url,
       user: json['user'] as String?,
+      model: json['model'] as String? ?? "dall-e-2",
+      style: $enumDecodeNullable(_$ImageStyleEnumMap, json['style']),
     );
 
 Map<String, dynamic> _$ImageCreateRequestToJson(ImageCreateRequest instance) {
   final val = <String, dynamic>{
     'prompt': instance.prompt,
+    'model': instance.model,
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -51,6 +54,7 @@ Map<String, dynamic> _$ImageCreateRequestToJson(ImageCreateRequest instance) {
   writeNotNull('n', instance.n);
   val['size'] = _$ImageSizeEnumMap[instance.size]!;
   val['response_format'] = _$ResponseFormatEnumMap[instance.responseFormat]!;
+  writeNotNull('style', _$ImageStyleEnumMap[instance.style]);
   writeNotNull('user', instance.user);
   return val;
 }
@@ -66,9 +70,15 @@ const _$ResponseFormatEnumMap = {
   ResponseFormat.b64Json: 'b64_json',
 };
 
+const _$ImageStyleEnumMap = {
+  ImageStyle.vivid: 'vivid',
+  ImageStyle.natural: 'natural',
+};
+
 Map<String, dynamic> _$ImageEditRequestToJson(ImageEditRequest instance) {
   final val = <String, dynamic>{
     'prompt': instance.prompt,
+    'model': instance.model,
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -86,7 +96,9 @@ Map<String, dynamic> _$ImageEditRequestToJson(ImageEditRequest instance) {
 
 Map<String, dynamic> _$ImageVariationRequestToJson(
     ImageVariationRequest instance) {
-  final val = <String, dynamic>{};
+  final val = <String, dynamic>{
+    'model': instance.model,
+  };
 
   void writeNotNull(String key, dynamic value) {
     if (value != null) {

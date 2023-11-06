@@ -45,10 +45,16 @@ class ImageCreateRequest {
   @JsonKey(name: "response_format")
   ResponseFormat responseFormat;
 
+  /// The style of the generated images. Must be one of vivid or natural.
+  /// Vivid causes the model to lean towards generating hyper-real and dramatic
+  /// images. Natural causes the model to produce more natural, less hyper-real
+  /// looking images. This param is only supported for dall-e-3.
+  ImageStyle? style;
+
   /// A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse. Learn more.
   String? user;
 
-  ImageCreateRequest({required this.prompt, this.size = ImageSize.size256x256, this.n, this.responseFormat = ResponseFormat.url, this.user, this.model = "dall-e-2"});
+  ImageCreateRequest({required this.prompt, this.size = ImageSize.size256x256, this.n, this.responseFormat = ResponseFormat.url, this.user, this.model = "dall-e-2", this.style});
 
   factory ImageCreateRequest.fromJson(Map<String, dynamic> json) =>
       _$ImageCreateRequestFromJson(json);
@@ -172,4 +178,9 @@ enum ImageSize {
   @JsonValue("1024x1024")
   size1024x1024
 
+}
+
+enum ImageStyle {
+  vivid,
+  natural
 }
