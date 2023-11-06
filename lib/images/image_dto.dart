@@ -33,6 +33,9 @@ class ImageCreateRequest {
   /// A text description of the desired image(s). The maximum length is 1000 characters.
   String prompt;
 
+  /// The model to use for image generation.
+  String model;
+
   /// The number of images to generate. Must be between 1 and 10.
   int? n;
 
@@ -45,7 +48,7 @@ class ImageCreateRequest {
   /// A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse. Learn more.
   String? user;
 
-  ImageCreateRequest({required this.prompt, this.size = ImageSize.size256x256, this.n, this.responseFormat = ResponseFormat.url, this.user});
+  ImageCreateRequest({required this.prompt, this.size = ImageSize.size256x256, this.n, this.responseFormat = ResponseFormat.url, this.user, this.model = "dall-e-2"});
 
   factory ImageCreateRequest.fromJson(Map<String, dynamic> json) =>
       _$ImageCreateRequestFromJson(json);
@@ -74,9 +77,11 @@ class ImageEditRequest {
   @JsonKey(includeFromJson: false, includeToJson: false)
   Uint8List? imageMaskBytes;
 
-
   /// A text description of the desired image(s). The maximum length is 1000 characters.
   String prompt;
+
+  /// The model to use for image generation.
+  String model;
 
   /// The number of images to generate. Must be between 1 and 10.
   int? n;
@@ -90,7 +95,7 @@ class ImageEditRequest {
   /// A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse. Learn more.
   String? user;
 
-  ImageEditRequest({required this.imageBytes, required this.prompt, this.imageMaskBytes, this.size = ImageSize.size256x256, this.n, this.responseFormat = ResponseFormat.url, this.user});
+  ImageEditRequest({required this.imageBytes, required this.prompt, this.imageMaskBytes, this.size = ImageSize.size256x256, this.n, this.responseFormat = ResponseFormat.url, this.user, this.model = "dall-e-2"});
 
   Map<String, dynamic> toJson() => _$ImageEditRequestToJson(this);
 
@@ -107,6 +112,9 @@ class ImageVariationRequest {
   @JsonKey(includeFromJson: false, includeToJson: false)
   Uint8List imageBytes;
 
+  /// The model to use for image generation.
+  String model;
+
   /// The number of images to generate. Must be between 1 and 10.
   int? n;
 
@@ -119,7 +127,7 @@ class ImageVariationRequest {
   /// A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse. Learn more.
   String? user;
 
-  ImageVariationRequest({required this.imageBytes, this.size = ImageSize.size256x256, this.n, this.responseFormat = ResponseFormat.url, this.user});
+  ImageVariationRequest({required this.imageBytes, this.size = ImageSize.size256x256, this.n, this.responseFormat = ResponseFormat.url, this.user, this.model = "dall-e-2"});
 
   Map<String, dynamic> toJson() => _$ImageVariationRequestToJson(this);
 

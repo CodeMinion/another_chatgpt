@@ -13,3 +13,6 @@
 ## 3.1.0
 * Adds support for image edits and variations.
 
+## 3.1.1
+* Exposes model param for image generation.
+
