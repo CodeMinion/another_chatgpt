@@ -19,3 +19,6 @@
 ## 3.1.2
 * Exposes style param for image generation.
 
+## 3.1.3
+* Added support for image sizes 1024x1792 and 1792x1024.
+

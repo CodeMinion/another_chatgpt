@@ -16,6 +16,16 @@ void main() {
     //_client.createChatCompletion(request: request)
 
     /*
+
+    ImageCreationRequest request = ImageCreationRequest(
+        prompt: "A sunlit indoor lounge area with a pool containing a flamingo",
+        n: 1,
+        model: "dall-e-3"
+      size: ImageSize.size1024x1024
+    );
+    List<GptImage> images = await client.createImage(request: request);
+
+
     ImageEditRequest request = ImageEditRequest(
         imageBytes: File("image_edit_original.png").readAsBytesSync(),
         imageMaskBytes: File("image_edit_mask.png").readAsBytesSync(),

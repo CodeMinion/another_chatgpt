@@ -63,6 +63,8 @@ const _$ImageSizeEnumMap = {
   ImageSize.size256x256: '256x256',
   ImageSize.size512x512: '512x512',
   ImageSize.size1024x1024: '1024x1024',
+  ImageSize.size1792x1024: '1792x1024',
+  ImageSize.size1024x1792: '1024x1792',
 };
 
 const _$ResponseFormatEnumMap = {

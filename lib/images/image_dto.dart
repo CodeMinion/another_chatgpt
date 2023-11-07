@@ -176,7 +176,13 @@ enum ImageSize {
   size512x512,
 
   @JsonValue("1024x1024")
-  size1024x1024
+  size1024x1024,
+
+  @JsonValue("1792x1024")
+  size1792x1024,
+  
+  @JsonValue("1024x1792")
+  size1024x1792,
 
 }
 
