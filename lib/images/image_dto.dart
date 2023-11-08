@@ -39,6 +39,10 @@ class ImageCreateRequest {
   /// The number of images to generate. Must be between 1 and 10.
   int? n;
 
+  /// The quality of the image that will be generated. hd creates images with
+  /// finer details and greater consistency across the image. This param is only supported for dall-e-3.
+  ImageQuality? quality;
+
   // The size of the generated images. Must be one of 256x256, 512x512, or 1024x1024.
   ImageSize size;
 
@@ -54,7 +58,7 @@ class ImageCreateRequest {
   /// A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse. Learn more.
   String? user;
 
-  ImageCreateRequest({required this.prompt, this.size = ImageSize.size256x256, this.n, this.responseFormat = ResponseFormat.url, this.user, this.model = "dall-e-2", this.style});
+  ImageCreateRequest({required this.prompt, this.size = ImageSize.size256x256, this.n, this.quality, this.responseFormat = ResponseFormat.url, this.user, this.model = "dall-e-2", this.style});
 
   factory ImageCreateRequest.fromJson(Map<String, dynamic> json) =>
       _$ImageCreateRequestFromJson(json);
@@ -189,4 +193,9 @@ enum ImageSize {
 enum ImageStyle {
   vivid,
   natural
+}
+
+enum ImageQuality {
+  standard,
+  hd
 }

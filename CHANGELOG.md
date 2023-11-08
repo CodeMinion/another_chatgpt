@@ -22,3 +22,6 @@
 ## 3.1.3
 * Added support for image sizes 1024x1792 and 1792x1024.
 
+## 3.1.4
+* Added support for image quality during creation.
+

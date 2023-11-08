@@ -31,6 +31,7 @@ ImageCreateRequest _$ImageCreateRequestFromJson(Map<String, dynamic> json) =>
       size: $enumDecodeNullable(_$ImageSizeEnumMap, json['size']) ??
           ImageSize.size256x256,
       n: json['n'] as int?,
+      quality: $enumDecodeNullable(_$ImageQualityEnumMap, json['quality']),
       responseFormat: $enumDecodeNullable(
               _$ResponseFormatEnumMap, json['response_format']) ??
           ResponseFormat.url,
@@ -52,6 +53,7 @@ Map<String, dynamic> _$ImageCreateRequestToJson(ImageCreateRequest instance) {
   }
 
   writeNotNull('n', instance.n);
+  writeNotNull('quality', _$ImageQualityEnumMap[instance.quality]);
   val['size'] = _$ImageSizeEnumMap[instance.size]!;
   val['response_format'] = _$ResponseFormatEnumMap[instance.responseFormat]!;
   writeNotNull('style', _$ImageStyleEnumMap[instance.style]);
@@ -65,6 +67,11 @@ const _$ImageSizeEnumMap = {
   ImageSize.size1024x1024: '1024x1024',
   ImageSize.size1792x1024: '1792x1024',
   ImageSize.size1024x1792: '1024x1792',
+};
+
+const _$ImageQualityEnumMap = {
+  ImageQuality.standard: 'standard',
+  ImageQuality.hd: 'hd',
 };
 
 const _$ResponseFormatEnumMap = {

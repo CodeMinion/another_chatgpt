@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   test('adds one to input values', () async {
 
-    // GptClient client = GptClient(organizationId: AppKeys.orgId, apiKey: AppKeys.apiKey);
+    //GptClient client = GptClient(organizationId: AppKeys.orgId, apiKey: AppKeys.apiKey);
     /*
     ImageCreateRequest request = ImageCreateRequest(prompt: "I want a wizard like the one in Final Fantasy 1 in pixelated style.");
     List<GptImage> images = await client.createImage(request: request);
@@ -15,17 +15,20 @@ void main() {
     //GptCompletionRequest request = GptCompletionRequest(model: model, prompt: prompt);
     //_client.createChatCompletion(request: request)
 
-    /*
 
-    ImageCreationRequest request = ImageCreationRequest(
-        prompt: "A sunlit indoor lounge area with a pool containing a flamingo",
+
+    /*
+    ImageCreateRequest request = ImageCreateRequest(
+        prompt: '''A sunlit indoor lounge area with a pool containing a flamingo''',
         n: 1,
-        model: "dall-e-3"
+        model: "dall-e-3",
       size: ImageSize.size1024x1024
     );
     List<GptImage> images = await client.createImage(request: request);
 
+     */
 
+    /*
     ImageEditRequest request = ImageEditRequest(
         imageBytes: File("image_edit_original.png").readAsBytesSync(),
         imageMaskBytes: File("image_edit_mask.png").readAsBytesSync(),
