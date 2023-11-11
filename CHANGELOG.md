@@ -25,3 +25,6 @@
 ## 3.1.4
 * Added support for image quality during creation.
 
+## 3.2.0
+* Added API for getting the image generated as bytes.
+

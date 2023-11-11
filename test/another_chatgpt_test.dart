@@ -15,18 +15,17 @@ void main() {
     //GptCompletionRequest request = GptCompletionRequest(model: model, prompt: prompt);
     //_client.createChatCompletion(request: request)
 
-
-
     /*
     ImageCreateRequest request = ImageCreateRequest(
         prompt: '''A sunlit indoor lounge area with a pool containing a flamingo''',
         n: 1,
+        responseFormat: ResponseFormat.b64Json,
         model: "dall-e-3",
       size: ImageSize.size1024x1024
     );
     List<GptImage> images = await client.createImage(request: request);
-
      */
+    //File("testImage2.png").writeAsBytes(await images.first.getImageBytes());
 
     /*
     ImageEditRequest request = ImageEditRequest(

@@ -1,6 +1,6 @@
 name: another_chatgpt
 description: Package for interacting with the OpenAI APIs
-version: 3.1.4
+version: 3.2.0
 homepage: https://github.com/CodeMinion/another_chatgpt
 
 environment:

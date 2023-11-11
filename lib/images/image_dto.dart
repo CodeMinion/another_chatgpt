@@ -1,8 +1,11 @@
 
+import 'dart:convert';
 import 'dart:typed_data';
+import 'package:http/http.dart' as http;
 
 import 'package:json_annotation/json_annotation.dart';
 part 'image_dto.g.dart';
+
 
 @JsonSerializable(includeIfNull: false)
 class GptImage {
@@ -21,6 +24,18 @@ class GptImage {
 
   Map<String, dynamic> toJson() => _$GptImageToJson(this);
 
+  Future<Uint8List> getImageBytes() async {
+    if(b64Json != null) {
+      return base64Decode(b64Json!);
+    }
+    else if (url != null) {
+      var response = await http.get(Uri.parse(url!));
+      if(response.statusCode == 200) {
+        return response.bodyBytes;
+      }
+    }
+    throw UnsupportedError("Failed to load image bytes.");
+  }
   @override
   String toString() {
     return toJson().toString();
