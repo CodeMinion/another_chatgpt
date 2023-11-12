@@ -28,3 +28,5 @@
 ## 3.2.0
 * Added API for getting the image generated as bytes.
 
+## 4.0.0
+* Changed type of role from String to enum GptRole.

@@ -7,14 +7,14 @@ part of 'completions_dto.dart';
 // **************************************************************************
 
 GptMessage _$GptMessageFromJson(Map<String, dynamic> json) => GptMessage(
-      role: json['role'] as String,
+      role: $enumDecode(_$GptRoleEnumMap, json['role']),
       content: json['content'] as String,
       name: json['name'] as String?,
     );
 
 Map<String, dynamic> _$GptMessageToJson(GptMessage instance) {
   final val = <String, dynamic>{
-    'role': instance.role,
+    'role': _$GptRoleEnumMap[instance.role]!,
     'content': instance.content,
   };
 
@@ -27,6 +27,12 @@ Map<String, dynamic> _$GptMessageToJson(GptMessage instance) {
   writeNotNull('name', instance.name);
   return val;
 }
+
+const _$GptRoleEnumMap = {
+  GptRole.system: 'system',
+  GptRole.user: 'user',
+  GptRole.assistant: 'assistant',
+};
 
 GptChoice _$GptChoiceFromJson(Map<String, dynamic> json) => GptChoice(
       index: json['index'] as int,

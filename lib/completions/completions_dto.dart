@@ -4,7 +4,7 @@ part 'completions_dto.g.dart';
 
 @JsonSerializable(includeIfNull: false)
 class GptMessage {
-  String role;
+  GptRole role;
   String content;
   String? name;
 
@@ -229,4 +229,10 @@ class GptCompletionRequest {
   String toString() {
     return toJson().toString();
   }
+}
+
+enum GptRole {
+  system,
+  user,
+  assistant
 }
