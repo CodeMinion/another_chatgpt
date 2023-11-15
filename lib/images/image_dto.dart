@@ -17,6 +17,9 @@ class GptImage {
   @JsonKey(name: "b64_json")
   String? b64Json;
 
+  @JsonKey(name: "revised_prompt")
+  String? revisedPrompt;
+
   GptImage({this.url, this.b64Json});
 
   factory GptImage.fromJson(Map<String, dynamic> json) =>

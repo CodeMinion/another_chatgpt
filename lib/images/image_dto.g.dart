@@ -9,7 +9,7 @@ part of 'image_dto.dart';
 GptImage _$GptImageFromJson(Map<String, dynamic> json) => GptImage(
       url: json['url'] as String?,
       b64Json: json['b64_json'] as String?,
-    );
+    )..revisedPrompt = json['revised_prompt'] as String?;
 
 Map<String, dynamic> _$GptImageToJson(GptImage instance) {
   final val = <String, dynamic>{};
@@ -22,6 +22,7 @@ Map<String, dynamic> _$GptImageToJson(GptImage instance) {
 
   writeNotNull('url', instance.url);
   writeNotNull('b64_json', instance.b64Json);
+  writeNotNull('revised_prompt', instance.revisedPrompt);
   return val;
 }
 
