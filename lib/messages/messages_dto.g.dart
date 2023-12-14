@@ -176,3 +176,107 @@ Map<String, dynamic> _$GptThreadAnnotationFilePathToJson(
     <String, dynamic>{
       'file_id': instance.fileId,
     };
+
+CreateGptMessageRequest _$CreateGptMessageRequestFromJson(
+        Map<String, dynamic> json) =>
+    CreateGptMessageRequest(
+      metadata: json['metadata'] as Map<String, dynamic>?,
+      fileIds:
+          (json['file_ids'] as List<dynamic>).map((e) => e as String).toList(),
+      content: (json['content'] as List<dynamic>)
+          .map((e) => GptThreadContent.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      role: $enumDecode(_$GptThreadRoleEnumMap, json['role']),
+    );
+
+Map<String, dynamic> _$CreateGptMessageRequestToJson(
+    CreateGptMessageRequest instance) {
+  final val = <String, dynamic>{
+    'role': _$GptThreadRoleEnumMap[instance.role]!,
+    'content': instance.content,
+    'file_ids': instance.fileIds,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('metadata', instance.metadata);
+  return val;
+}
+
+ModifyGptMessageRequest _$ModifyGptMessageRequestFromJson(
+        Map<String, dynamic> json) =>
+    ModifyGptMessageRequest(
+      metadata: json['metadata'] as Map<String, dynamic>?,
+      fileIds:
+          (json['file_ids'] as List<dynamic>).map((e) => e as String).toList(),
+      content: (json['content'] as List<dynamic>)
+          .map((e) => GptThreadContent.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      role: $enumDecode(_$GptThreadRoleEnumMap, json['role']),
+    );
+
+Map<String, dynamic> _$ModifyGptMessageRequestToJson(
+    ModifyGptMessageRequest instance) {
+  final val = <String, dynamic>{
+    'role': _$GptThreadRoleEnumMap[instance.role]!,
+    'content': instance.content,
+    'file_ids': instance.fileIds,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('metadata', instance.metadata);
+  return val;
+}
+
+GptMessageList _$GptMessageListFromJson(Map<String, dynamic> json) =>
+    GptMessageList(
+      object: json['object'] as String,
+      data: (json['data'] as List<dynamic>)
+          .map((e) => GptMessage.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$GptMessageListToJson(GptMessageList instance) =>
+    <String, dynamic>{
+      'object': instance.object,
+      'data': instance.data,
+    };
+
+GptMessageFile _$GptMessageFileFromJson(Map<String, dynamic> json) =>
+    GptMessageFile(
+      messageId: json['message_id'] as String,
+      object: json['object'] as String,
+      id: json['id'] as String,
+      createdAd: json['created_at'] as int,
+    );
+
+Map<String, dynamic> _$GptMessageFileToJson(GptMessageFile instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'object': instance.object,
+      'created_at': instance.createdAd,
+      'message_id': instance.messageId,
+    };
+
+GptMessageFileList _$GptMessageFileListFromJson(Map<String, dynamic> json) =>
+    GptMessageFileList(
+      object: json['object'] as String,
+      data: (json['data'] as List<dynamic>)
+          .map((e) => GptMessageFile.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$GptMessageFileListToJson(GptMessageFileList instance) =>
+    <String, dynamic>{
+      'object': instance.object,
+      'data': instance.data,
+    };

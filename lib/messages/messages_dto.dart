@@ -4,25 +4,38 @@ part 'messages_dto.g.dart';
 
 @JsonSerializable(includeIfNull: false)
 class GptMessage {
+
+  /// The identifier, which can be referenced in API endpoints.
   String id;
+
+  /// The object type, which is always thread.message.
   String object;
 
+  /// The Unix timestamp (in seconds) for when the message was created.
   @JsonKey(name: "created_at")
   int createdAt;
 
+  /// The thread ID that this message belongs to.
   @JsonKey(name: "thread_id")
   String threadId;
 
+  /// The entity that produced the message. One of user or assistant.
   GptThreadRole role;
 
+  /// The content of the message in array of text and/or images.
   List<GptThreadContent> content;
 
+  /// If applicable, the ID of the assistant that authored this message.
   @JsonKey(name: "assistant_id")
   String? assistantId;
 
+  /// If applicable, the ID of the run associated with the authoring of this message.
   @JsonKey(name: "run_id")
   String? runId;
 
+  /// A list of file IDs that the assistant should use. Useful for tools like
+  /// retrieval and code_interpreter that can access files.
+  /// A maximum of 10 files can be attached to a message.
   @JsonKey(name: "file_ids")
   List<String> fileIds;
 
@@ -48,6 +61,7 @@ class GptMessage {
 
 @JsonSerializable(includeIfNull: false)
 class GptThreadContent {
+
   GptThreadContentType type;
   @JsonKey(name: "image_file")
   GptThreadContentImageFile? imageFile;
@@ -170,6 +184,139 @@ class GptThreadAnnotationFilePath {
   }
 }
 
+@JsonSerializable(includeIfNull: false)
+class CreateGptMessageRequest {
+
+  /// The role of the entity that is creating the message. Currently only user is supported.
+  GptThreadRole role;
+
+  /// The content of the message.
+  List<GptThreadContent> content;
+
+  /// A list of File IDs that the message should use.
+  /// There can be a maximum of 10 files attached to a message.
+  /// Useful for tools like retrieval and code_interpreter that
+  /// can access and use files.
+  @JsonKey(name: "file_ids")
+  List<String> fileIds;
+
+  /// Set of 16 key-value pairs that can be attached to an object.
+  /// This can be useful for storing additional information about
+  /// the object in a structured format. Keys can be a maximum of
+  /// 64 characters long and values can be a maxium of 512 characters long.
+  Map<String, dynamic>? metadata;
+
+  CreateGptMessageRequest(
+      {this.metadata, required this.fileIds, required this.content, required this.role});
+
+  factory CreateGptMessageRequest.fromJson(Map<String, dynamic> json) =>
+      _$CreateGptMessageRequestFromJson(json);
+
+  Map<String, dynamic> toJson() => _$CreateGptMessageRequestToJson(this);
+
+  @override
+  String toString() {
+    return toJson().toString();
+  }
+}
+
+@JsonSerializable(includeIfNull: false)
+class ModifyGptMessageRequest {
+
+  /// The role of the entity that is creating the message. Currently only user is supported.
+  GptThreadRole role;
+
+  /// The content of the message.
+  List<GptThreadContent> content;
+
+  /// A list of File IDs that the message should use.
+  /// There can be a maximum of 10 files attached to a message.
+  /// Useful for tools like retrieval and code_interpreter that
+  /// can access and use files.
+  @JsonKey(name: "file_ids")
+  List<String> fileIds;
+
+  /// Set of 16 key-value pairs that can be attached to an object.
+  /// This can be useful for storing additional information about
+  /// the object in a structured format. Keys can be a maximum of
+  /// 64 characters long and values can be a maxium of 512 characters long.
+  Map<String, dynamic>? metadata;
+
+  ModifyGptMessageRequest(
+      {this.metadata, required this.fileIds, required this.content, required this.role});
+
+  factory ModifyGptMessageRequest.fromJson(Map<String, dynamic> json) =>
+      _$ModifyGptMessageRequestFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ModifyGptMessageRequestToJson(this);
+
+  @override
+  String toString() {
+    return toJson().toString();
+  }
+}
+
+@JsonSerializable(includeIfNull: false)
+class GptMessageList {
+  String object;
+  List<GptMessage> data;
+
+  GptMessageList({required this.object, required this.data});
+
+  factory GptMessageList.fromJson(Map<String, dynamic> json) =>
+      _$GptMessageListFromJson(json);
+
+  Map<String, dynamic> toJson() => _$GptMessageListToJson(this);
+
+  @override
+  String toString() {
+    return toJson().toString();
+  }
+}
+
+@JsonSerializable(includeIfNull: false)
+class GptMessageFile {
+  String id;
+  String object;
+
+  @JsonKey(name: "created_at")
+  int createdAd;
+
+  @JsonKey(name: "message_id")
+  String messageId;
+
+  GptMessageFile({required this.messageId, required this.object, required this.id, required this.createdAd});
+
+  factory GptMessageFile.fromJson(Map<String, dynamic> json) =>
+      _$GptMessageFileFromJson(json);
+
+  Map<String, dynamic> toJson() => _$GptMessageFileToJson(this);
+
+  @override
+  String toString() {
+    return toJson().toString();
+  }
+}
+
+
+@JsonSerializable(includeIfNull: false)
+class GptMessageFileList {
+  String object;
+  List<GptMessageFile> data;
+
+  GptMessageFileList({required this.object, required this.data});
+
+  factory GptMessageFileList.fromJson(Map<String, dynamic> json) =>
+      _$GptMessageFileListFromJson(json);
+
+  Map<String, dynamic> toJson() => _$GptMessageFileListToJson(this);
+
+  @override
+  String toString() {
+    return toJson().toString();
+  }
+}
+
 enum GptThreadRole {
   user,
   assistant
@@ -186,4 +333,9 @@ enum GptContentTextType {
   fileCitation,
   @JsonValue("file_path")
   filePath,
+}
+
+enum GptMessageOrder {
+  asc,
+  desc
 }

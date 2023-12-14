@@ -175,39 +175,6 @@ Map<String, dynamic> _$AssistantListToJson(AssistantList instance) =>
       'data': instance.data,
     };
 
-GetAssistantListRequest _$GetAssistantListRequestFromJson(
-        Map<String, dynamic> json) =>
-    GetAssistantListRequest(
-      limit: json['limit'] as int? ?? 20,
-      order: $enumDecodeNullable(_$AssistantOrderEnumMap, json['order']) ??
-          AssistantOrder.desc,
-      after: json['after'] as String?,
-      before: json['before'] as String?,
-    );
-
-Map<String, dynamic> _$GetAssistantListRequestToJson(
-    GetAssistantListRequest instance) {
-  final val = <String, dynamic>{
-    'limit': instance.limit,
-    'order': _$AssistantOrderEnumMap[instance.order]!,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('after', instance.after);
-  writeNotNull('before', instance.before);
-  return val;
-}
-
-const _$AssistantOrderEnumMap = {
-  AssistantOrder.asc: 'asc',
-  AssistantOrder.desc: 'desc',
-};
-
 AssistantFile _$AssistantFileFromJson(Map<String, dynamic> json) =>
     AssistantFile(
       id: json['id'] as String,
@@ -249,31 +216,3 @@ Map<String, dynamic> _$AssistantFileListToJson(AssistantFileList instance) =>
       'object': instance.object,
       'data': instance.data,
     };
-
-GetAssistantFileListRequest _$GetAssistantFileListRequestFromJson(
-        Map<String, dynamic> json) =>
-    GetAssistantFileListRequest(
-      limit: json['limit'] as int? ?? 20,
-      order: $enumDecodeNullable(_$AssistantOrderEnumMap, json['order']) ??
-          AssistantOrder.desc,
-      after: json['after'] as String?,
-      before: json['before'] as String?,
-    );
-
-Map<String, dynamic> _$GetAssistantFileListRequestToJson(
-    GetAssistantFileListRequest instance) {
-  final val = <String, dynamic>{
-    'limit': instance.limit,
-    'order': _$AssistantOrderEnumMap[instance.order]!,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('after', instance.after);
-  writeNotNull('before', instance.before);
-  return val;
-}

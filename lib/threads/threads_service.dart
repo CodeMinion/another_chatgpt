@@ -29,11 +29,11 @@ class ThreadsService {
     Uri endpoint;
     if(secure) {
       endpoint = Uri.https(
-          baseUrl, "/v1/chat/threads");
+          baseUrl, "/v1/threads");
     }
     else {
       endpoint = Uri.http(
-          baseUrl, "/v1/chat/threads");
+          baseUrl, "/v1/threads");
     }
 
     var response = await
@@ -66,11 +66,11 @@ class ThreadsService {
     Uri endpoint;
     if(secure) {
       endpoint = Uri.https(
-          baseUrl, "/v1/chat/thread/$threadId");
+          baseUrl, "/v1/thread/$threadId");
     }
     else {
       endpoint = Uri.http(
-          baseUrl, "/v1/chat/thread/$threadId");
+          baseUrl, "/v1/thread/$threadId");
     }
 
     var response = await
@@ -104,11 +104,11 @@ class ThreadsService {
     Uri endpoint;
     if(secure) {
       endpoint = Uri.https(
-          baseUrl, "/v1/chat/threads");
+          baseUrl, "/v1/threads");
     }
     else {
       endpoint = Uri.http(
-          baseUrl, "/v1/chat/threads");
+          baseUrl, "/v1/threads");
     }
 
     var response = await
@@ -141,11 +141,11 @@ class ThreadsService {
     Uri endpoint;
     if(secure) {
       endpoint = Uri.https(
-          baseUrl, "/v1/chat/thread/$threadId");
+          baseUrl, "/v1/thread/$threadId");
     }
     else {
       endpoint = Uri.http(
-          baseUrl, "/v1/chat/thread/$threadId");
+          baseUrl, "/v1/thread/$threadId");
     }
 
     var response = await

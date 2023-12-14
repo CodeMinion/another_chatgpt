@@ -244,43 +244,7 @@ class AssistantList {
   }
 }
 
-@JsonSerializable(includeIfNull: false)
-class GetAssistantListRequest {
 
-  /// A limit on the number of objects to be returned.
-  /// Limit can range between 1 and 100, and the default is 20.
-  int limit;
-
-  /// Sort order by the created_at timestamp of the objects.
-  /// asc for ascending order and desc for descending order.
-  AssistantOrder order;
-
-  /// A cursor for use in pagination. after is an object ID that defines
-  /// your place in the list. For instance, if you make a list
-  /// request and receive 100 objects, ending with obj_foo,
-  /// your subsequent call can include after=obj_foo in order
-  /// to fetch the next page of the list.
-  String? after;
-
-  /// A cursor for use in pagination. before is an object ID
-  /// that defines your place in the list. For instance,
-  /// if you make a list request and receive 100 objects,
-  /// ending with obj_foo, your subsequent call can include
-  /// before=obj_foo in order to fetch the previous page of the list.
-  String? before;
-
-  GetAssistantListRequest({this.limit = 20, this.order = AssistantOrder.desc, this.after, this.before});
-
-  factory GetAssistantListRequest.fromJson(Map<String, dynamic> json) =>
-      _$GetAssistantListRequestFromJson(json);
-
-  Map<String, dynamic> toJson() => _$GetAssistantListRequestToJson(this);
-
-  @override
-  String toString() {
-    return toJson().toString();
-  }
-}
 
 @JsonSerializable(includeIfNull: false)
 class AssistantFile {
@@ -352,53 +316,9 @@ class AssistantFileList {
   }
 }
 
-@JsonSerializable(includeIfNull: false)
-class GetAssistantFileListRequest {
-
-  /// A limit on the number of objects to be returned.
-  /// Limit can range between 1 and 100, and the default is 20.
-  int limit;
-
-  /// Sort order by the created_at timestamp of the objects.
-  /// asc for ascending order and desc for descending order.
-  AssistantOrder order;
-
-  /// A cursor for use in pagination. after is an object ID that defines
-  /// your place in the list. For instance, if you make a list
-  /// request and receive 100 objects, ending with obj_foo,
-  /// your subsequent call can include after=obj_foo in order
-  /// to fetch the next page of the list.
-  String? after;
-
-  /// A cursor for use in pagination. before is an object ID
-  /// that defines your place in the list. For instance,
-  /// if you make a list request and receive 100 objects,
-  /// ending with obj_foo, your subsequent call can include
-  /// before=obj_foo in order to fetch the previous page of the list.
-  String? before;
-
-  GetAssistantFileListRequest({this.limit = 20, this.order = AssistantOrder.desc, this.after, this.before});
-
-  factory GetAssistantFileListRequest.fromJson(Map<String, dynamic> json) =>
-      _$GetAssistantFileListRequestFromJson(json);
-
-  Map<String, dynamic> toJson() => _$GetAssistantFileListRequestToJson(this);
-
-  @override
-  String toString() {
-    return toJson().toString();
-  }
-}
-
-
 enum AssistantToolType {
   @JsonValue("code_interpreter")
   codeInterpreter,
   retrieval,
   function,
-}
-
-enum AssistantOrder {
-  asc,
-  desc,
 }

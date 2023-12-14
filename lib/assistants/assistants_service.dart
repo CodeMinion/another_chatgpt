@@ -5,6 +5,8 @@ import 'package:another_chatgpt/assistants/assistants_dto.dart';
 import 'package:another_chatgpt/error_models.dart';
 import 'package:http/http.dart' as http;
 
+import '../common/common_dto.dart';
+
 
 class AssistantsService {
 
@@ -32,11 +34,11 @@ class AssistantsService {
     Uri endpoint;
     if(secure) {
       endpoint = Uri.https(
-          baseUrl, "/v1/chat/assistants");
+          baseUrl, "/v1/assistants");
     }
     else {
       endpoint = Uri.http(
-          baseUrl, "/v1/chat/assistants");
+          baseUrl, "/v1/assistants");
     }
 
     var response = await
@@ -69,11 +71,11 @@ class AssistantsService {
     Uri endpoint;
     if(secure) {
       endpoint = Uri.https(
-          baseUrl, "/v1/chat/assistants/$assistantId");
+          baseUrl, "/v1/assistants/$assistantId");
     }
     else {
       endpoint = Uri.http(
-          baseUrl, "/v1/chat/assistants/$assistantId");
+          baseUrl, "/v1/assistants/$assistantId");
     }
 
     var response = await
@@ -108,11 +110,11 @@ class AssistantsService {
     Uri endpoint;
     if(secure) {
       endpoint = Uri.https(
-          baseUrl, "/v1/chat/assistants/$assistantId");
+          baseUrl, "/v1/assistants/$assistantId");
     }
     else {
       endpoint = Uri.http(
-          baseUrl, "/v1/chat/assistants/$assistantId");
+          baseUrl, "/v1/assistants/$assistantId");
     }
 
     var response = await
@@ -145,11 +147,11 @@ class AssistantsService {
     Uri endpoint;
     if(secure) {
       endpoint = Uri.https(
-          baseUrl, "/v1/chat/assistants/$assistantId");
+          baseUrl, "/v1/assistants/$assistantId");
     }
     else {
       endpoint = Uri.http(
-          baseUrl, "/v1/chat/assistants/$assistantId");
+          baseUrl, "/v1/assistants/$assistantId");
     }
 
     var response = await
@@ -168,7 +170,7 @@ class AssistantsService {
   Future<List<GptAssistant>> listAssistants({
     required String apiKey,
     required String organizationId,
-    required GetAssistantListRequest request
+    required GetGptListRequest request
   }) async {
 
     Map<String, String> headers = {
@@ -182,11 +184,11 @@ class AssistantsService {
     Uri endpoint;
     if(secure) {
       endpoint = Uri.https(
-          baseUrl, "/v1/chat/assistants", request.toJson());
+          baseUrl, "/v1/assistants", request.toJson());
     }
     else {
       endpoint = Uri.http(
-          baseUrl, "/v1/chat/assistants", request.toJson());
+          baseUrl, "/v1/assistants", request.toJson());
     }
 
     var response = await
@@ -220,11 +222,11 @@ class AssistantsService {
     Uri endpoint;
     if(secure) {
       endpoint = Uri.https(
-          baseUrl, "/v1/chat/assistants/$assistantId/files");
+          baseUrl, "/v1/assistants/$assistantId/files");
     }
     else {
       endpoint = Uri.http(
-          baseUrl, "/v1/chat/assistants/$assistantId/files");
+          baseUrl, "/v1/assistants/$assistantId/files");
     }
 
     var response = await
@@ -258,11 +260,11 @@ class AssistantsService {
     Uri endpoint;
     if(secure) {
       endpoint = Uri.https(
-          baseUrl, "/v1/chat/assistants/$assistantId/files/$fileId");
+          baseUrl, "/v1/assistants/$assistantId/files/$fileId");
     }
     else {
       endpoint = Uri.http(
-          baseUrl, "/v1/chat/assistants/$assistantId/files/$fileId");
+          baseUrl, "/v1/assistants/$assistantId/files/$fileId");
     }
 
     var response = await
@@ -295,11 +297,11 @@ class AssistantsService {
     Uri endpoint;
     if(secure) {
       endpoint = Uri.https(
-          baseUrl, "/v1/chat/assistants/$assistantId/files/$fileId");
+          baseUrl, "/v1/assistants/$assistantId/files/$fileId");
     }
     else {
       endpoint = Uri.http(
-          baseUrl, "/v1/chat/assistants/$assistantId/files/$fileId");
+          baseUrl, "/v1/assistants/$assistantId/files/$fileId");
     }
 
     var response = await
@@ -319,7 +321,7 @@ class AssistantsService {
     required String apiKey,
     required String organizationId,
     required String assistantId,
-    required GetAssistantFileListRequest request
+    required GetGptListRequest request
   }) async {
 
     Map<String, String> headers = {
@@ -333,11 +335,11 @@ class AssistantsService {
     Uri endpoint;
     if(secure) {
       endpoint = Uri.https(
-          baseUrl, "/v1/chat/assistants/$assistantId/files", request.toJson());
+          baseUrl, "/v1/assistants/$assistantId/files", request.toJson());
     }
     else {
       endpoint = Uri.http(
-          baseUrl, "/v1/chat/assistants/$assistantId/files",request.toJson());
+          baseUrl, "/v1/assistants/$assistantId/files",request.toJson());
     }
 
     var response = await
