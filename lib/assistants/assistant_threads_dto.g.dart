@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'threads_dto.dart';
+part of 'assistant_threads_dto.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
@@ -83,6 +83,7 @@ Map<String, dynamic> _$GptThreadMessageToJson(GptThreadMessage instance) {
 
 const _$GptThreadRoleEnumMap = {
   GptThreadRole.user: 'user',
+  GptThreadRole.assistant: 'assistant',
 };
 
 ModifyGptThreadRequest _$ModifyGptThreadRequestFromJson(

@@ -1,9 +1,44 @@
+import 'package:another_chatgpt/another_chatgpt.dart';
+import 'package:another_chatgpt/app_keys.dart';
+import 'package:another_chatgpt/assistants/assistant_conversation.dart';
+import 'package:another_chatgpt/assistants/assistant_messages_dto.dart';
+import 'package:another_chatgpt/assistants/assistant_threads_dto.dart';
+import 'package:another_chatgpt/assistants/assistants_dto.dart';
+import 'package:another_chatgpt/assistants/runs_dto.dart';
+import 'package:another_chatgpt/common/common_dto.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   test('adds one to input values', () async {
 
-    //GptClient client = GptClient(organizationId: AppKeys.orgId, apiKey: AppKeys.apiKey);
+    GptClient client = GptClient(organizationId: AppKeys.orgId, apiKey: AppKeys.apiKey);
+
+    /*
+    GptAssistant assistant = await client.retrieveAssistant(assistantId: "asst_VbIB8QeWk7JFsWfkHQKKZu1W");
+    print("Assistant: $assistant");
+
+    GptRun assistantRun = await client.createThreadAndRun(request:
+    CreateAndRunThreadRequest(assistantId: assistant.id, thread: GptRunThread(
+      messages: [ GptThreadMessage(role: GptThreadRole.user, content: "What is flying?")]
+    )));
+
+    print("Print Run: $assistantRun");
+
+    assistantRun = await client.retrieveRun(threadId: "thread_nrdXhyJrAoKjittBP9m5zls7", runId: "run_UtFRfQ96MJw37SETth1TfUZl");
+    print("Print Run: $assistantRun");
+
+    List<GptAssistantMessage> messages = await client.listMessages(threadId: "thread_nrdXhyJrAoKjittBP9m5zls7", request: GetGptListRequest());
+
+    print("Messages: $messages");
+
+     */
+
+    AssistantConversation conversation = AssistantConversation(client: client, assistantId: "asst_VbIB8QeWk7JFsWfkHQKKZu1W");
+    List<GptAssistantMessage> responses = await conversation.postMessage(content: "What does the lifelink ability do?");
+    print("Responses: $responses");
+
+    responses = await conversation.postMessage(content: "What happens when a creature with lifelink blocks?");
+    print("Responses 2: $responses");
     /*
     ImageCreateRequest request = ImageCreateRequest(prompt: "I want a wizard like the one in Final Fantasy 1 in pixelated style.");
     List<GptImage> images = await client.createImage(request: request);

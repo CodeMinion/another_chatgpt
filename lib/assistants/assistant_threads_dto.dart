@@ -1,7 +1,9 @@
 
 import 'package:json_annotation/json_annotation.dart';
 
-part 'threads_dto.g.dart';
+import 'assistant_messages_dto.dart';
+
+part 'assistant_threads_dto.g.dart';
 
 @JsonSerializable(includeIfNull: false)
 class GptThread {
@@ -91,6 +93,7 @@ class GptThreadMessage {
   }
 }
 
+
 @JsonSerializable(includeIfNull: false)
 class ModifyGptThreadRequest {
 
@@ -111,9 +114,4 @@ class ModifyGptThreadRequest {
   String toString() {
     return toJson().toString();
   }
-}
-
-
-enum GptThreadRole {
-  user
 }

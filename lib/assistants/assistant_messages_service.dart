@@ -1,21 +1,22 @@
 
 import 'dart:convert';
 
+import 'package:another_chatgpt/common/extensions.dart';
 import 'package:http/http.dart' as http;
 
 import '../common/common_dto.dart';
 import '../error_models.dart';
-import 'messages_dto.dart';
+import '../assistants/assistant_messages_dto.dart';
 
-class ThreadsService {
+class AssistantMessageService {
 
   final String baseUrl;
   final bool secure;
 
-  ThreadsService({required this.baseUrl, required this.secure});
+  AssistantMessageService({required this.baseUrl, required this.secure});
 
   /// Create a message.
-  Future<GptMessage> createMessage({
+  Future<GptAssistantMessage> createMessage({
     required String apiKey,
     required String organizationId,
     required String threadId,
@@ -26,6 +27,7 @@ class ThreadsService {
       "OpenAI-Organization": organizationId,
       'Content-Type': 'application/json',
       "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+      "OpenAI-Beta": "assistants=v1"
     };
 
     Uri endpoint;
@@ -42,7 +44,7 @@ class ThreadsService {
     http.post(endpoint, headers: headers, body:jsonEncode(request.toJson()));
 
     if (response.statusCode == 200 || response.statusCode == 201) {
-      return GptMessage.fromJson(jsonDecode(const Utf8Decoder().convert(response.bodyBytes)));
+      return GptAssistantMessage.fromJson(jsonDecode(const Utf8Decoder().convert(response.bodyBytes)));
     }
     else {
       var error = ServerError.fromJson(jsonDecode(response.body));
@@ -51,7 +53,7 @@ class ThreadsService {
   }
 
   /// Retrieves a message.
-  Future<GptMessage> retrieveMessage({
+  Future<GptAssistantMessage> retrieveMessage({
     required String apiKey,
     required String organizationId,
     required String threadId,
@@ -63,24 +65,25 @@ class ThreadsService {
       "OpenAI-Organization": organizationId,
       'Content-Type': 'application/json',
       "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+      "OpenAI-Beta": "assistants=v1"
     };
 
 
     Uri endpoint;
     if(secure) {
       endpoint = Uri.https(
-          baseUrl, "/v1/thread/$threadId/messages/$messageId");
+          baseUrl, "/v1/threads/$threadId/messages/$messageId");
     }
     else {
       endpoint = Uri.http(
-          baseUrl, "/v1/thread/$threadId/messages/$messageId");
+          baseUrl, "/v1/threads/$threadId/messages/$messageId");
     }
 
     var response = await
     http.get(endpoint, headers: headers);
 
     if (response.statusCode == 200 || response.statusCode == 201) {
-      return GptMessage.fromJson(jsonDecode(const Utf8Decoder().convert(response.bodyBytes)));
+      return GptAssistantMessage.fromJson(jsonDecode(const Utf8Decoder().convert(response.bodyBytes)));
     }
     else {
       var error = ServerError.fromJson(jsonDecode(response.body));
@@ -89,7 +92,7 @@ class ThreadsService {
   }
 
   /// Modifies a message.
-  Future<GptMessage> modifyMessage({
+  Future<GptAssistantMessage> modifyMessage({
     required String apiKey,
     required String organizationId,
     required String threadId,
@@ -101,6 +104,7 @@ class ThreadsService {
       "OpenAI-Organization": organizationId,
       'Content-Type': 'application/json',
       "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+      "OpenAI-Beta": "assistants=v1"
     };
 
     Uri endpoint;
@@ -117,7 +121,7 @@ class ThreadsService {
     http.post(endpoint, headers: headers, body:jsonEncode(request.toJson()));
 
     if (response.statusCode == 200 || response.statusCode == 201) {
-      return GptMessage.fromJson(jsonDecode(const Utf8Decoder().convert(response.bodyBytes)));
+      return GptAssistantMessage.fromJson(jsonDecode(const Utf8Decoder().convert(response.bodyBytes)));
     }
     else {
       var error = ServerError.fromJson(jsonDecode(response.body));
@@ -125,7 +129,7 @@ class ThreadsService {
     }
   }
 
-  Future<List<GptMessage>> listMessages({
+  Future<List<GptAssistantMessage>> listMessages({
     required String apiKey,
     required String organizationId,
     required String threadId,
@@ -137,24 +141,25 @@ class ThreadsService {
       "OpenAI-Organization": organizationId,
       'Content-Type': 'application/json',
       "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+      "OpenAI-Beta": "assistants=v1"
     };
 
 
     Uri endpoint;
     if(secure) {
       endpoint = Uri.https(
-          baseUrl, "/v1/threads/$threadId/messages", request.toJson());
+          baseUrl, "/v1/threads/$threadId/messages", request.toJson().toQueryParam());
     }
     else {
       endpoint = Uri.http(
-          baseUrl, "/v1/threads/$threadId/messages",request.toJson());
+          baseUrl, "/v1/threads/$threadId/messages",request.toJson().toQueryParam());
     }
 
     var response = await
     http.get(endpoint, headers: headers);
 
     if (response.statusCode == 200 || response.statusCode == 201) {
-      return GptMessageList.fromJson(jsonDecode(const Utf8Decoder().convert(response.bodyBytes))).data;
+      return GptList<GptAssistantMessage>.fromJson(jsonDecode(const Utf8Decoder().convert(response.bodyBytes)), (data)=> GptAssistantMessage.fromJson(data as Map<String, dynamic>)).data;
     }
     else {
       var error = ServerError.fromJson(jsonDecode(response.body));
@@ -176,16 +181,17 @@ class ThreadsService {
       "OpenAI-Organization": organizationId,
       'Content-Type': 'application/json',
       "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+      "OpenAI-Beta": "assistants=v1"
     };
 
     Uri endpoint;
     if(secure) {
       endpoint = Uri.https(
-          baseUrl, "/v1/thread/$threadId/messages/$messageId/files/$fileId");
+          baseUrl, "/v1/threads/$threadId/messages/$messageId/files/$fileId");
     }
     else {
       endpoint = Uri.http(
-          baseUrl, "/v1/thread/$threadId/messages/$messageId/files/$fileId");
+          baseUrl, "/v1/threads/$threadId/messages/$messageId/files/$fileId");
     }
 
     var response = await
@@ -214,17 +220,18 @@ class ThreadsService {
       "OpenAI-Organization": organizationId,
       'Content-Type': 'application/json',
       "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+      "OpenAI-Beta": "assistants=v1"
     };
 
 
     Uri endpoint;
     if(secure) {
       endpoint = Uri.https(
-          baseUrl, "/v1/threads/$threadId/messages/$messageId/files", request.toJson());
+          baseUrl, "/v1/threads/$threadId/messages/$messageId/files", request.toJson().toQueryParam());
     }
     else {
       endpoint = Uri.http(
-          baseUrl, "/v1/threads/$threadId/messages/$messageId/files",request.toJson());
+          baseUrl, "/v1/threads/$threadId/messages/$messageId/files",request.toJson().toQueryParam());
     }
 
     var response = await
@@ -238,6 +245,8 @@ class ThreadsService {
       throw MessagesException(statusCode: response.statusCode, message: error.message);
     }
   }
+
+
 }
 
 class MessagesException implements Exception {

@@ -2,15 +2,15 @@
 import 'dart:convert';
 
 import 'package:another_chatgpt/error_models.dart';
-import 'package:another_chatgpt/threads/threads_dto.dart';
+import 'package:another_chatgpt/assistants/assistant_threads_dto.dart';
 import 'package:http/http.dart' as http;
 
-class ThreadsService {
+class AssistantThreadsService {
 
   final String baseUrl;
   final bool secure;
 
-  ThreadsService({required this.baseUrl, required this.secure});
+  AssistantThreadsService({required this.baseUrl, required this.secure});
 
   /// Create a thread.
   Future<GptThread> createThread({
@@ -24,6 +24,7 @@ class ThreadsService {
       "OpenAI-Organization": organizationId,
       'Content-Type': 'application/json',
       "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+      "OpenAI-Beta": "assistants=v1"
     };
 
     Uri endpoint;
@@ -60,17 +61,18 @@ class ThreadsService {
       "OpenAI-Organization": organizationId,
       'Content-Type': 'application/json',
       "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+      "OpenAI-Beta": "assistants=v1"
     };
 
 
     Uri endpoint;
     if(secure) {
       endpoint = Uri.https(
-          baseUrl, "/v1/thread/$threadId");
+          baseUrl, "/v1/threads/$threadId");
     }
     else {
       endpoint = Uri.http(
-          baseUrl, "/v1/thread/$threadId");
+          baseUrl, "/v1/threads/$threadId");
     }
 
     var response = await
@@ -99,6 +101,7 @@ class ThreadsService {
       "OpenAI-Organization": organizationId,
       'Content-Type': 'application/json',
       "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+      "OpenAI-Beta": "assistants=v1"
     };
 
     Uri endpoint;
@@ -135,17 +138,18 @@ class ThreadsService {
       "OpenAI-Organization": organizationId,
       'Content-Type': 'application/json',
       "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+      "OpenAI-Beta": "assistants=v1"
     };
 
 
     Uri endpoint;
     if(secure) {
       endpoint = Uri.https(
-          baseUrl, "/v1/thread/$threadId");
+          baseUrl, "/v1/threads/$threadId");
     }
     else {
       endpoint = Uri.http(
-          baseUrl, "/v1/thread/$threadId");
+          baseUrl, "/v1/threads/$threadId");
     }
 
     var response = await

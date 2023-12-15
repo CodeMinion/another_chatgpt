@@ -26,6 +26,7 @@ class RunsService {
       "OpenAI-Organization": organizationId,
       'Content-Type': 'application/json',
       "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+      "OpenAI-Beta": "assistants=v1"
     };
 
     Uri endpoint;
@@ -63,17 +64,19 @@ class RunsService {
       "OpenAI-Organization": organizationId,
       'Content-Type': 'application/json',
       "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+      "OpenAI-Beta": "assistants=v1"
+
     };
 
 
     Uri endpoint;
     if(secure) {
       endpoint = Uri.https(
-          baseUrl, "/v1/thread/$threadId/runs/$runId");
+          baseUrl, "/v1/threads/$threadId/runs/$runId");
     }
     else {
       endpoint = Uri.http(
-          baseUrl, "/v1/thread/$threadId/runs/$runId");
+          baseUrl, "/v1/threads/$threadId/runs/$runId");
     }
 
     var response = await
@@ -102,6 +105,7 @@ class RunsService {
       "OpenAI-Organization": organizationId,
       'Content-Type': 'application/json',
       "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+      "OpenAI-Beta": "assistants=v1"
     };
 
     Uri endpoint;
@@ -126,6 +130,7 @@ class RunsService {
     }
   }
 
+  /// Lists runs
   Future<List<GptRun>> listRuns({
     required String apiKey,
     required String organizationId,
@@ -137,17 +142,18 @@ class RunsService {
       "OpenAI-Organization": organizationId,
       'Content-Type': 'application/json',
       "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+      "OpenAI-Beta": "assistants=v1"
     };
 
 
     Uri endpoint;
     if(secure) {
       endpoint = Uri.https(
-          baseUrl, "/v1/thread/$threadId/runs");
+          baseUrl, "/v1/threads/$threadId/runs");
     }
     else {
       endpoint = Uri.http(
-          baseUrl, "/v1/thread/$threadId/runs");
+          baseUrl, "/v1/threads/$threadId/runs");
     }
 
     var response = await
@@ -178,6 +184,7 @@ class RunsService {
       "OpenAI-Organization": organizationId,
       'Content-Type': 'application/json',
       "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+      "OpenAI-Beta": "assistants=v1"
     };
 
     Uri endpoint;
@@ -215,6 +222,7 @@ class RunsService {
       "OpenAI-Organization": organizationId,
       'Content-Type': 'application/json',
       "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+      "OpenAI-Beta": "assistants=v1"
     };
 
     Uri endpoint;
@@ -243,7 +251,6 @@ class RunsService {
   Future<GptRun> createThreadAndRun({
     required String apiKey,
     required String organizationId,
-    required String threadId,
     required CreateAndRunThreadRequest request,
   }) async {
     Map<String, String> headers = {
@@ -251,16 +258,17 @@ class RunsService {
       "OpenAI-Organization": organizationId,
       'Content-Type': 'application/json',
       "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+      "OpenAI-Beta": "assistants=v1"
     };
 
     Uri endpoint;
     if(secure) {
       endpoint = Uri.https(
-          baseUrl, "/v1/threads/$threadId/runs");
+          baseUrl, "/v1/threads/runs");
     }
     else {
       endpoint = Uri.http(
-          baseUrl, "/v1/threads/$threadId/runs");
+          baseUrl, "/v1/threads/runs");
     }
 
     var response = await

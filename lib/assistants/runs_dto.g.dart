@@ -125,13 +125,24 @@ GptRunFunction _$GptRunFunctionFromJson(Map<String, dynamic> json) =>
     GptRunFunction(
       name: json['name'] as String,
       arguments: json['arguments'] as String,
+      output: json['output'] as String?,
     );
 
-Map<String, dynamic> _$GptRunFunctionToJson(GptRunFunction instance) =>
-    <String, dynamic>{
-      'name': instance.name,
-      'arguments': instance.arguments,
-    };
+Map<String, dynamic> _$GptRunFunctionToJson(GptRunFunction instance) {
+  final val = <String, dynamic>{
+    'name': instance.name,
+    'arguments': instance.arguments,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('output', instance.output);
+  return val;
+}
 
 GptRunError _$GptRunErrorFromJson(Map<String, dynamic> json) => GptRunError(
       message: json['message'] as String,
@@ -152,23 +163,31 @@ const _$GptRunErrorCodeEnumMap = {
 CreateGptRunRequest _$CreateGptRunRequestFromJson(Map<String, dynamic> json) =>
     CreateGptRunRequest(
       assistantId: json['assistant_id'] as String,
-      metadata: json['metadata'] as Map<String, dynamic>,
-      instructions: json['instructions'] as String,
-      model: json['model'] as String,
-      tools: (json['tools'] as List<dynamic>)
-          .map((e) => AssistantTool.fromJson(e as Map<String, dynamic>))
+      metadata: json['metadata'] as Map<String, dynamic>?,
+      instructions: json['instructions'] as String?,
+      model: json['model'] as String?,
+      tools: (json['tools'] as List<dynamic>?)
+          ?.map((e) => AssistantTool.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
-Map<String, dynamic> _$CreateGptRunRequestToJson(
-        CreateGptRunRequest instance) =>
-    <String, dynamic>{
-      'assistant_id': instance.assistantId,
-      'model': instance.model,
-      'instructions': instance.instructions,
-      'tools': instance.tools,
-      'metadata': instance.metadata,
-    };
+Map<String, dynamic> _$CreateGptRunRequestToJson(CreateGptRunRequest instance) {
+  final val = <String, dynamic>{
+    'assistant_id': instance.assistantId,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('model', instance.model);
+  writeNotNull('instructions', instance.instructions);
+  writeNotNull('tools', instance.tools);
+  writeNotNull('metadata', instance.metadata);
+  return val;
+}
 
 ModifyGptRunRequest _$ModifyGptRunRequestFromJson(Map<String, dynamic> json) =>
     ModifyGptRunRequest(
@@ -265,6 +284,8 @@ GptRunStep _$GptRunStepFromJson(Map<String, dynamic> json) => GptRunStep(
       startedAt: json['started_at'] as int?,
       runId: json['run_id'] as String,
       type: $enumDecode(_$GptRunStepTypeEnumMap, json['type']),
+      stepDetails: const GptRunStepDetailConverter()
+          .fromJson(json['step_details'] as Object),
     );
 
 Map<String, dynamic> _$GptRunStepToJson(GptRunStep instance) {
@@ -277,6 +298,8 @@ Map<String, dynamic> _$GptRunStepToJson(GptRunStep instance) {
     'run_id': instance.runId,
     'type': _$GptRunStepTypeEnumMap[instance.type]!,
     'status': _$GptRunStatusEnumMap[instance.status]!,
+    'step_details':
+        const GptRunStepDetailConverter().toJson(instance.stepDetails),
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -299,3 +322,166 @@ const _$GptRunStepTypeEnumMap = {
   GptRunStepType.messageCreation: 'message_creation',
   GptRunStepType.toolCalls: 'tool_calls',
 };
+
+GptRunMessageCreationStepDetail _$GptRunMessageCreationStepDetailFromJson(
+        Map<String, dynamic> json) =>
+    GptRunMessageCreationStepDetail(
+      type: $enumDecodeNullable(_$GptRunStepTypeEnumMap, json['type']) ??
+          GptRunStepType.messageCreation,
+      messageCreation: GptRunMessageCreation.fromJson(
+          json['message_creation'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$GptRunMessageCreationStepDetailToJson(
+        GptRunMessageCreationStepDetail instance) =>
+    <String, dynamic>{
+      'type': _$GptRunStepTypeEnumMap[instance.type]!,
+      'message_creation': instance.messageCreation,
+    };
+
+GptRunMessageCreation _$GptRunMessageCreationFromJson(
+        Map<String, dynamic> json) =>
+    GptRunMessageCreation(
+      messageid: json['message_id'] as String,
+    );
+
+Map<String, dynamic> _$GptRunMessageCreationToJson(
+        GptRunMessageCreation instance) =>
+    <String, dynamic>{
+      'message_id': instance.messageid,
+    };
+
+GptRunToolCallsStepDetail _$GptRunToolCallsStepDetailFromJson(
+        Map<String, dynamic> json) =>
+    GptRunToolCallsStepDetail(
+      type: $enumDecodeNullable(_$GptRunStepTypeEnumMap, json['type']) ??
+          GptRunStepType.toolCalls,
+      toolCalls: (json['tool_calls'] as List<dynamic>)
+          .map((e) => const GptRunToolCallConverter().fromJson(e as Object))
+          .toList(),
+    );
+
+Map<String, dynamic> _$GptRunToolCallsStepDetailToJson(
+        GptRunToolCallsStepDetail instance) =>
+    <String, dynamic>{
+      'type': _$GptRunStepTypeEnumMap[instance.type]!,
+      'tool_calls': instance.toolCalls
+          .map(const GptRunToolCallConverter().toJson)
+          .toList(),
+    };
+
+GptRunRetrievalToolCall _$GptRunRetrievalToolCallFromJson(
+        Map<String, dynamic> json) =>
+    GptRunRetrievalToolCall(
+      type: $enumDecode(_$GptToolCallTypeEnumMap, json['type']),
+      id: json['id'] as String,
+    );
+
+Map<String, dynamic> _$GptRunRetrievalToolCallToJson(
+        GptRunRetrievalToolCall instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'type': _$GptToolCallTypeEnumMap[instance.type]!,
+    };
+
+const _$GptToolCallTypeEnumMap = {
+  GptToolCallType.codeInterpreter: 'code_interpreter',
+  GptToolCallType.retrieval: 'retrieval',
+  GptToolCallType.function: 'function',
+};
+
+GptRunFunctionToolCall _$GptRunFunctionToolCallFromJson(
+        Map<String, dynamic> json) =>
+    GptRunFunctionToolCall(
+      type: $enumDecode(_$GptToolCallTypeEnumMap, json['type']),
+      id: json['id'] as String,
+      function:
+          GptRunFunction.fromJson(json['function'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$GptRunFunctionToolCallToJson(
+        GptRunFunctionToolCall instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'type': _$GptToolCallTypeEnumMap[instance.type]!,
+      'function': instance.function,
+    };
+
+GptRunCodeInterpreterToolCall _$GptRunCodeInterpreterToolCallFromJson(
+        Map<String, dynamic> json) =>
+    GptRunCodeInterpreterToolCall(
+      type: $enumDecode(_$GptToolCallTypeEnumMap, json['type']),
+      id: json['id'] as String,
+      codeInterpreter: GptCodeInterpreter.fromJson(
+          json['code_interpreter'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$GptRunCodeInterpreterToolCallToJson(
+        GptRunCodeInterpreterToolCall instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'type': _$GptToolCallTypeEnumMap[instance.type]!,
+      'code_interpreter': instance.codeInterpreter,
+    };
+
+GptCodeInterpreter _$GptCodeInterpreterFromJson(Map<String, dynamic> json) =>
+    GptCodeInterpreter(
+      input: json['input'] as String,
+      outputs: (json['outputs'] as List<dynamic>)
+          .map((e) => const CodeInterpreterConverter().fromJson(e as Object))
+          .toList(),
+    );
+
+Map<String, dynamic> _$GptCodeInterpreterToJson(GptCodeInterpreter instance) =>
+    <String, dynamic>{
+      'input': instance.input,
+      'outputs': instance.outputs
+          .map(const CodeInterpreterConverter().toJson)
+          .toList(),
+    };
+
+GptCodeInterpreterLogOutput _$GptCodeInterpreterLogOutputFromJson(
+        Map<String, dynamic> json) =>
+    GptCodeInterpreterLogOutput(
+      type: $enumDecodeNullable(
+              _$GptCodeInterpreterLogTypeEnumMap, json['type']) ??
+          GptCodeInterpreterLogType.logs,
+      logs: json['logs'] as String,
+    );
+
+Map<String, dynamic> _$GptCodeInterpreterLogOutputToJson(
+        GptCodeInterpreterLogOutput instance) =>
+    <String, dynamic>{
+      'type': _$GptCodeInterpreterLogTypeEnumMap[instance.type]!,
+      'logs': instance.logs,
+    };
+
+const _$GptCodeInterpreterLogTypeEnumMap = {
+  GptCodeInterpreterLogType.logs: 'logs',
+  GptCodeInterpreterLogType.image: 'image',
+};
+
+GptCodeInterpreterImageOutput _$GptCodeInterpreterImageOutputFromJson(
+        Map<String, dynamic> json) =>
+    GptCodeInterpreterImageOutput(
+      type: $enumDecodeNullable(
+              _$GptCodeInterpreterLogTypeEnumMap, json['type']) ??
+          GptCodeInterpreterLogType.image,
+      image: GptRunImage.fromJson(json['image'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$GptCodeInterpreterImageOutputToJson(
+        GptCodeInterpreterImageOutput instance) =>
+    <String, dynamic>{
+      'type': _$GptCodeInterpreterLogTypeEnumMap[instance.type]!,
+      'image': instance.image,
+    };
+
+GptRunImage _$GptRunImageFromJson(Map<String, dynamic> json) => GptRunImage(
+      fileId: json['file_id'] as String,
+    );
+
+Map<String, dynamic> _$GptRunImageToJson(GptRunImage instance) =>
+    <String, dynamic>{
+      'file_id': instance.fileId,
+    };

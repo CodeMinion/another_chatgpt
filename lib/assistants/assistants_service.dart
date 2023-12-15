@@ -2,6 +2,7 @@
 import 'dart:convert';
 
 import 'package:another_chatgpt/assistants/assistants_dto.dart';
+import 'package:another_chatgpt/common/extensions.dart';
 import 'package:another_chatgpt/error_models.dart';
 import 'package:http/http.dart' as http;
 
@@ -29,6 +30,7 @@ class AssistantsService {
       "OpenAI-Organization": organizationId,
       'Content-Type': 'application/json',
       "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+      "OpenAI-Beta": "assistants=v1"
     };
 
     Uri endpoint;
@@ -65,6 +67,7 @@ class AssistantsService {
       "OpenAI-Organization": organizationId,
       'Content-Type': 'application/json',
       "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+      "OpenAI-Beta": "assistants=v1"
     };
 
 
@@ -104,6 +107,7 @@ class AssistantsService {
       "OpenAI-Organization": organizationId,
       'Content-Type': 'application/json',
       "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+      "OpenAI-Beta": "assistants=v1"
     };
 
 
@@ -141,6 +145,7 @@ class AssistantsService {
       "OpenAI-Organization": organizationId,
       'Content-Type': 'application/json',
       "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+      "OpenAI-Beta": "assistants=v1"
     };
 
 
@@ -178,17 +183,18 @@ class AssistantsService {
       "OpenAI-Organization": organizationId,
       'Content-Type': 'application/json',
       "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+      "OpenAI-Beta": "assistants=v1"
     };
 
 
     Uri endpoint;
     if(secure) {
       endpoint = Uri.https(
-          baseUrl, "/v1/assistants", request.toJson());
+          baseUrl, "/v1/assistants", request.toJson().toQueryParam());
     }
     else {
       endpoint = Uri.http(
-          baseUrl, "/v1/assistants", request.toJson());
+          baseUrl, "/v1/assistants", request.toJson().toQueryParam());
     }
 
     var response = await
@@ -254,6 +260,7 @@ class AssistantsService {
       "OpenAI-Organization": organizationId,
       'Content-Type': 'application/json',
       "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+      "OpenAI-Beta": "assistants=v1"
     };
 
 
@@ -291,6 +298,7 @@ class AssistantsService {
       "OpenAI-Organization": organizationId,
       'Content-Type': 'application/json',
       "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+      "OpenAI-Beta": "assistants=v1"
     };
 
 
@@ -329,17 +337,18 @@ class AssistantsService {
       "OpenAI-Organization": organizationId,
       'Content-Type': 'application/json',
       "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+      "OpenAI-Beta": "assistants=v1"
     };
 
 
     Uri endpoint;
     if(secure) {
       endpoint = Uri.https(
-          baseUrl, "/v1/assistants/$assistantId/files", request.toJson());
+          baseUrl, "/v1/assistants/$assistantId/files", request.toJson().toQueryParam());
     }
     else {
       endpoint = Uri.http(
-          baseUrl, "/v1/assistants/$assistantId/files",request.toJson());
+          baseUrl, "/v1/assistants/$assistantId/files",request.toJson().toQueryParam());
     }
 
     var response = await

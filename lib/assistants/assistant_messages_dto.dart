@@ -1,9 +1,10 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'messages_dto.g.dart';
+
+part 'assistant_messages_dto.g.dart';
 
 @JsonSerializable(includeIfNull: false)
-class GptMessage {
+class GptAssistantMessage {
 
   /// The identifier, which can be referenced in API endpoints.
   String id;
@@ -45,13 +46,15 @@ class GptMessage {
   /// 64 characters long and values can be a maxium of 512 characters long.
   Map<String, dynamic>? metadata;
 
-  GptMessage(
+  GptAssistantMessage(
       {required this.id, this.object = "thread.message", required this.threadId, this.metadata, required this.fileIds, required this.content, required this.role, required this.createdAt, this.assistantId, this.runId});
 
-  factory GptMessage.fromJson(Map<String, dynamic> json) =>
-      _$GptMessageFromJson(json);
 
-  Map<String, dynamic> toJson() => _$GptMessageToJson(this);
+  factory GptAssistantMessage.fromJson(Map<String, dynamic> json) =>
+      _$GptAssistantMessageFromJson(json);
+
+  Map<String, dynamic> toJson() => _$GptAssistantMessageToJson(this);
+
 
   @override
   String toString() {
@@ -191,7 +194,7 @@ class CreateGptMessageRequest {
   GptThreadRole role;
 
   /// The content of the message.
-  List<GptThreadContent> content;
+  String content;
 
   /// A list of File IDs that the message should use.
   /// There can be a maximum of 10 files attached to a message.
@@ -249,24 +252,6 @@ class ModifyGptMessageRequest {
       _$ModifyGptMessageRequestFromJson(json);
 
   Map<String, dynamic> toJson() => _$ModifyGptMessageRequestToJson(this);
-
-  @override
-  String toString() {
-    return toJson().toString();
-  }
-}
-
-@JsonSerializable(includeIfNull: false)
-class GptMessageList {
-  String object;
-  List<GptMessage> data;
-
-  GptMessageList({required this.object, required this.data});
-
-  factory GptMessageList.fromJson(Map<String, dynamic> json) =>
-      _$GptMessageListFromJson(json);
-
-  Map<String, dynamic> toJson() => _$GptMessageListToJson(this);
 
   @override
   String toString() {

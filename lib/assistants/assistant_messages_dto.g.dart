@@ -1,12 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'messages_dto.dart';
+part of 'assistant_messages_dto.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-GptMessage _$GptMessageFromJson(Map<String, dynamic> json) => GptMessage(
+GptAssistantMessage _$GptAssistantMessageFromJson(Map<String, dynamic> json) =>
+    GptAssistantMessage(
       id: json['id'] as String,
       object: json['object'] as String? ?? "thread.message",
       threadId: json['thread_id'] as String,
@@ -22,7 +23,7 @@ GptMessage _$GptMessageFromJson(Map<String, dynamic> json) => GptMessage(
       runId: json['run_id'] as String?,
     );
 
-Map<String, dynamic> _$GptMessageToJson(GptMessage instance) {
+Map<String, dynamic> _$GptAssistantMessageToJson(GptAssistantMessage instance) {
   final val = <String, dynamic>{
     'id': instance.id,
     'object': instance.object,
@@ -183,9 +184,7 @@ CreateGptMessageRequest _$CreateGptMessageRequestFromJson(
       metadata: json['metadata'] as Map<String, dynamic>?,
       fileIds:
           (json['file_ids'] as List<dynamic>).map((e) => e as String).toList(),
-      content: (json['content'] as List<dynamic>)
-          .map((e) => GptThreadContent.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      content: json['content'] as String,
       role: $enumDecode(_$GptThreadRoleEnumMap, json['role']),
     );
 
@@ -236,20 +235,6 @@ Map<String, dynamic> _$ModifyGptMessageRequestToJson(
   writeNotNull('metadata', instance.metadata);
   return val;
 }
-
-GptMessageList _$GptMessageListFromJson(Map<String, dynamic> json) =>
-    GptMessageList(
-      object: json['object'] as String,
-      data: (json['data'] as List<dynamic>)
-          .map((e) => GptMessage.fromJson(e as Map<String, dynamic>))
-          .toList(),
-    );
-
-Map<String, dynamic> _$GptMessageListToJson(GptMessageList instance) =>
-    <String, dynamic>{
-      'object': instance.object,
-      'data': instance.data,
-    };
 
 GptMessageFile _$GptMessageFileFromJson(Map<String, dynamic> json) =>
     GptMessageFile(
