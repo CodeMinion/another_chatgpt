@@ -232,14 +232,12 @@ class GptClient {
     String? organizationId,
     required String threadId,
     required String runId,
-    required SubmitToolsOutputsRequest request,
   }) async {
     return _runsService.cancelRun(
         apiKey: apiKey ?? _apiKey,
         organizationId: organizationId ?? _organizationId,
         threadId: threadId,
-        runId: runId,
-        request: request);
+        runId: runId);
   }
 
   /// Create a thread and run it in one request.

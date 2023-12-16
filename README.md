@@ -12,3 +12,23 @@ GptCompletion completionResponse = await client.createChatCompletion(request: ch
 
 ```
 
+### Assistant Conversation
+Helper for dealing with a conversation with a single AI assistant. 
+
+```dart
+AssistantConversation conversation = AssistantConversation(client: client, assistantId: "");
+
+/// Listen for status updates.
+conversation.getProgress().listen((progress) {
+    print("Status: ${progress.status}");
+    if(progress.status == GptRunStatus.completed || progress.status == GptRunStatus.cancelled || progress.status == GptRunStatus.expired) {
+        print(progress.messages);
+    }
+}
+});
+
+/// Post a message to the assistant 
+conversation.postMessage(content: "What does the lifelink ability do?");
+
+```
+

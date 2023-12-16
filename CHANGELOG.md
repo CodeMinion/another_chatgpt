@@ -31,3 +31,6 @@
 ## 4.0.0
 * Changed type of role from String to enum GptRole.
 * Adds the revised_prompt field to the image object.
+
+## 4.1.0
+* Adds support for the assistant API.

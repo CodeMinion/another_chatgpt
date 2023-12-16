@@ -1,17 +1,9 @@
-import 'package:another_chatgpt/another_chatgpt.dart';
-import 'package:another_chatgpt/app_keys.dart';
-import 'package:another_chatgpt/assistants/assistant_conversation.dart';
-import 'package:another_chatgpt/assistants/assistant_messages_dto.dart';
-import 'package:another_chatgpt/assistants/assistant_threads_dto.dart';
-import 'package:another_chatgpt/assistants/assistants_dto.dart';
-import 'package:another_chatgpt/assistants/runs_dto.dart';
-import 'package:another_chatgpt/common/common_dto.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   test('adds one to input values', () async {
 
-    GptClient client = GptClient(organizationId: AppKeys.orgId, apiKey: AppKeys.apiKey);
+    //GptClient client = GptClient(organizationId: AppKeys.orgId, apiKey: AppKeys.apiKey);
 
     /*
     GptAssistant assistant = await client.retrieveAssistant(assistantId: "asst_VbIB8QeWk7JFsWfkHQKKZu1W");
@@ -33,12 +25,6 @@ void main() {
 
      */
 
-    AssistantConversation conversation = AssistantConversation(client: client, assistantId: "asst_VbIB8QeWk7JFsWfkHQKKZu1W");
-    List<GptAssistantMessage> responses = await conversation.postMessage(content: "What does the lifelink ability do?");
-    print("Responses: $responses");
-
-    responses = await conversation.postMessage(content: "What happens when a creature with lifelink blocks?");
-    print("Responses 2: $responses");
     /*
     ImageCreateRequest request = ImageCreateRequest(prompt: "I want a wizard like the one in Final Fantasy 1 in pixelated style.");
     List<GptImage> images = await client.createImage(request: request);
@@ -84,5 +70,33 @@ void main() {
 
      */
 
+    /*
+    AssistantConversation conversation = AssistantConversation(client: client, assistantId: "asst_VbIB8QeWk7JFsWfkHQKKZu1W");
+
+    List<GptAssistantMessage> responses = await conversation.postMessage(content: "What does the lifelink ability do?");
+    print("Responses: $responses");
+
+    responses = await conversation.postMessage(content: "What happens when a creature with lifelink blocks?");
+    print("Responses 2: $responses");
+     */
+
+    /*
+    var completer = Completer();
+    conversation.getProgress().listen((progress) {
+      print("Status: ${progress.status}");
+      if(progress.status == GptRunStatus.completed || progress.status == GptRunStatus.cancelled || progress.status == GptRunStatus.expired) {
+        print(progress.messages);
+        completer.complete();
+      }
+
+    });
+
+    conversation.postMessage(content: "What does the lifelink ability do?");
+    await Future.delayed(Duration(seconds: 5));
+    conversation.cancelLastMessage();
+
+    await completer.future;
+
+     */
   });
 }

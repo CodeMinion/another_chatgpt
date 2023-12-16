@@ -214,8 +214,7 @@ class RunsService {
     required String apiKey,
     required String organizationId,
     required String threadId,
-    required String runId,
-    required SubmitToolsOutputsRequest request,
+    required String runId
   }) async {
     Map<String, String> headers = {
       "Authorization": "Bearer $apiKey",
@@ -236,7 +235,7 @@ class RunsService {
     }
 
     var response = await
-    http.post(endpoint, headers: headers, body:jsonEncode(request.toJson()));
+    http.post(endpoint, headers: headers);
 
     if (response.statusCode == 200 || response.statusCode == 201) {
       return GptRun.fromJson(jsonDecode(const Utf8Decoder().convert(response.bodyBytes)));
