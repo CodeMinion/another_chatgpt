@@ -1,6 +1,6 @@
 name: another_chatgpt
 description: Package for interacting with the OpenAI APIs
-version: 4.1.0
+version: 4.1.1
 homepage: https://github.com/CodeMinion/another_chatgpt
 
 environment:
@@ -10,7 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  http: ^0.13.4
+  http: ^1.1.0
   json_annotation: ^4.8.1
 
 dev_dependencies:

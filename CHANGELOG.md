@@ -34,3 +34,6 @@
 
 ## 4.1.0
 * Adds support for the assistant API.
+
+## 4.1.1
+* Update HTTP package version.
