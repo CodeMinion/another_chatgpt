@@ -24,7 +24,8 @@ class AssistantConversation {
       this.statusCheckPeriod = const Duration(seconds: 2)});
 
   /// Notifies the progress of the conversation.
-  Stream<AssistantConversationProgress> getProgress() => _conversationProgressStream.stream;
+  Stream<AssistantConversationProgress> getProgress() =>
+      _conversationProgressStream.stream;
 
   ///
   /// Sends a message to the assistant. This will take care of creating the
@@ -41,22 +42,25 @@ class AssistantConversation {
 
     // If there is no thread active thread create it.
     if (threadId == null) {
+      // Create thread
       GptThread currentThread = await client.createThread(
         request: CreateGptThreadRequest(
+            /*
           messages: [
             GptThreadMessage(role: GptThreadRole.user, content: content)
           ],
-        ),
+          */
+            ),
       );
       threadId = currentThread.id;
-    } else {
-      // Add message to thread
-      await client.createMessage(
-        threadId: threadId!,
-        request: CreateGptMessageRequest(
-            fileIds: fileIds, content: content, role: GptThreadRole.user),
-      );
     }
+
+    // Add message to thread
+    GptAssistantMessage addedMessage = await client.createMessage(
+      threadId: threadId!,
+      request: CreateGptMessageRequest(
+          fileIds: fileIds, content: content, role: GptThreadRole.user),
+    );
 
     GptRun run = await client.createRun(
       threadId: threadId!,
@@ -66,13 +70,17 @@ class AssistantConversation {
     );
     runId ??= run.id;
 
+    // Add the user message to the history so it is reflected on the state update.
+    List<GptAssistantMessage> currentHistory =
+        List.of(_messageHistory ?? [], growable: true)..insert(0, addedMessage);
     do {
       _conversationProgressStream.add(AssistantConversationProgress(
-          assistantId: assistantId, status: run.status, messages: _messageHistory));
+          assistantId: assistantId,
+          status: run.status,
+          messages: currentHistory));
       await Future.delayed(statusCheckPeriod);
       run = await client.retrieveRun(threadId: threadId!, runId: runId!);
     } while (_isRunFinished(run: run));
-
 
     List<GptAssistantMessage> messages = await client.listMessages(
         threadId: threadId!, request: GetGptListRequest());
@@ -80,16 +88,19 @@ class AssistantConversation {
     _messageHistory = messages;
 
     _conversationProgressStream.add(AssistantConversationProgress(
-        assistantId: assistantId, status: run.status, messages: _messageHistory));
+        assistantId: assistantId,
+        status: run.status,
+        messages: _messageHistory!));
 
     runId = null;
     return messages;
   }
 
   bool _isRunFinished({required GptRun run}) {
-    return run.status != GptRunStatus.completed && run.status != GptRunStatus.cancelled && run.status != GptRunStatus.expired;
+    return run.status != GptRunStatus.completed &&
+        run.status != GptRunStatus.cancelled &&
+        run.status != GptRunStatus.expired;
   }
-
 
   /// Request a cancel for the last conversation message submitted.
   /// Returns true if the cancel was requested, false otherwise.
@@ -102,8 +113,6 @@ class AssistantConversation {
     return true;
   }
 
-
-
   bool isBusy() {
     return runId != null;
   }
@@ -112,12 +121,12 @@ class AssistantConversation {
 class AssistantConversationProgress {
   final String assistantId;
   final GptRunStatus status;
-  final List<GptAssistantMessage>? _messages;
+  final List<GptAssistantMessage> _messages;
 
   AssistantConversationProgress(
       {required this.assistantId,
       required this.status,
-      List<GptAssistantMessage>? messages})
+      required List<GptAssistantMessage> messages})
       : _messages = messages;
 
   List<GptAssistantMessage>? get messages => _messages;

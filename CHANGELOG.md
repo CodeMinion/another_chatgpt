@@ -37,3 +37,6 @@
 
 ## 4.1.1
 * Update HTTP package version.
+
+## 4.2.0
+* Improved status reporting.
