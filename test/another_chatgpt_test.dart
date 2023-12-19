@@ -1,9 +1,15 @@
+import 'dart:io';
+
+import 'package:another_chatgpt/another_chatgpt.dart';
+import 'package:another_chatgpt/app_keys.dart';
+import 'package:another_chatgpt/assistants/assistants_dto.dart';
+import 'package:another_chatgpt/files/files_dto.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   test('adds one to input values', () async {
 
-    //GptClient client = GptClient(organizationId: AppKeys.orgId, apiKey: AppKeys.apiKey);
+    GptClient client = GptClient(organizationId: AppKeys.orgId, apiKey: AppKeys.apiKey);
 
     /*
     GptAssistant assistant = await client.retrieveAssistant(assistantId: "asst_VbIB8QeWk7JFsWfkHQKKZu1W");
@@ -80,6 +86,8 @@ void main() {
     print("Responses 2: $responses");
      */
 
+    await client.modifyAssistant(assistantId: "asst_VbIB8QeWk7JFsWfkHQKKZu1W" , request: ModifyGptAssistantRequest(model: "ft:gpt-3.5-turbo-1106:personal::8XKFMaVt"));
+
     /*
     var completer = Completer();
     conversation.getProgress().listen((progress) {
@@ -96,6 +104,14 @@ void main() {
     conversation.cancelLastMessage();
 
     await completer.future;
+
+     */
+
+    /*
+    GptFile uploadedFile = await client.uploadFile(request: CreateFileRequest(purpose:  GptFilePurpose.fineTune, fileName: "mtg_rules_data_set.jsonl"), fileBytes: File("magic_rules_data_set.jsonl").readAsBytesSync());
+    print ("Uploaded File: $uploadedFile");
+
+    //await client.deleteFile(fileId: "file-bcREJ7ju0GSpdDaL9UZNH7QG");
 
      */
   });

@@ -135,9 +135,10 @@ ModifyGptAssistantRequest _$ModifyGptAssistantRequestFromJson(
               ?.map((e) => AssistantTool.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
-      fileIds:
-          (json['file_ids'] as List<dynamic>).map((e) => e as String).toList(),
-      metadata: json['metadata'] as Map<String, dynamic>,
+      fileIds: (json['file_ids'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
+      metadata: json['metadata'] as Map<String, dynamic>?,
     );
 
 Map<String, dynamic> _$ModifyGptAssistantRequestToJson(
@@ -156,8 +157,8 @@ Map<String, dynamic> _$ModifyGptAssistantRequestToJson(
   writeNotNull('description', instance.description);
   writeNotNull('instructions', instance.instructions);
   val['tools'] = instance.tools;
-  val['file_ids'] = instance.fileIds;
-  val['metadata'] = instance.metadata;
+  writeNotNull('file_ids', instance.fileIds);
+  writeNotNull('metadata', instance.metadata);
   return val;
 }
 

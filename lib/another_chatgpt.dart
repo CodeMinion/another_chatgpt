@@ -1,11 +1,15 @@
 library another_chatgpt;
 
+import 'dart:typed_data';
+
 import 'package:another_chatgpt/assistants/assistants_service.dart';
 import 'package:another_chatgpt/assistants/runs_service.dart';
 import 'package:another_chatgpt/chats/chats_dto.dart';
 import 'package:another_chatgpt/chats/chats_service.dart';
 import 'package:another_chatgpt/completions/completions_dto.dart';
 import 'package:another_chatgpt/completions/completions_service.dart';
+import 'package:another_chatgpt/files/files_dto.dart';
+import 'package:another_chatgpt/files/files_service.dart';
 import 'package:another_chatgpt/images/image_dto.dart';
 import 'package:another_chatgpt/images/image_service.dart';
 import 'package:another_chatgpt/models/models_dto.dart';
@@ -33,6 +37,7 @@ class GptClient {
   late AssistantsService _assistantsService;
   late AssistantThreadsService _threadsService;
   late AssistantMessageService _assistantMessageService;
+  late FilesService _filesService;
 
   GptClient(
       {required String apiKey,
@@ -52,6 +57,7 @@ class GptClient {
         AssistantThreadsService(baseUrl: _baseUrl, secure: _secured);
     _assistantMessageService =
         AssistantMessageService(baseUrl: _baseUrl, secure: _secured);
+    _filesService = FilesService(baseUrl: _baseUrl, secure: _secured);
   }
 
   ///
@@ -503,5 +509,70 @@ class GptClient {
         request: request);
   }
 
+  /// Returns a list of files that belong to the user's organization.
+  Future<List<GptFile>> listFiles({
+    String? apiKey,
+    String? organizationId,
+    required ListFilesRequest request,
+  }) async {
+    return _filesService.listFiles(
+        apiKey: apiKey ?? _apiKey,
+        organizationId: organizationId ?? _organizationId,
+        request: request);
+  }
 
+  /// Upload a file that can be used across various endpoints.
+  /// The size of all the files uploaded by one organization can be up to 100 GB.
+  ///
+  /// The size of individual files can be a maximum of 512 MB or
+  /// 2 million tokens for Assistants. See the Assistants Tools guide
+  /// to learn more about the types of files supported. The Fine-tuning
+  /// API only supports .jsonl files.
+  Future<GptFile> uploadFile(
+      {String? apiKey,
+      String? organizationId,
+      required CreateFileRequest request,
+      required Uint8List fileBytes}) async {
+    return _filesService.uploadFile(
+        apiKey: apiKey ?? _apiKey,
+        organizationId: organizationId ?? _organizationId,
+        request: request,
+        fileBytes: fileBytes);
+  }
+
+  /// Delete a file.
+  Future<void> deleteFile({
+    String? apiKey,
+    String? organizationId,
+    required String fileId,
+  }) async {
+    return _filesService.deleteFile(
+        apiKey: apiKey ?? _apiKey,
+        organizationId: organizationId ?? _organizationId,
+        fileId: fileId);
+  }
+
+  /// Returns information about a specific file.
+  Future<GptFile> retrieveFile({
+    String? apiKey,
+    String? organizationId,
+    required String fileId,
+  }) async {
+    return _filesService.retrieveFile(
+        apiKey: apiKey ?? _apiKey,
+        organizationId: organizationId ?? _organizationId,
+        fileId: fileId);
+  }
+
+  /// Returns the contents of the specified file.
+  Future<Uint8List> retrieveFileContent({
+    String? apiKey,
+    String? organizationId,
+    required String fileId,
+  }) async {
+    return _filesService.retrieveFileContent(
+        apiKey: apiKey ?? _apiKey,
+        organizationId: organizationId ?? _organizationId,
+        fileId: fileId);
+  }
 }

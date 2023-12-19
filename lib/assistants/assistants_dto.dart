@@ -198,13 +198,13 @@ class ModifyGptAssistantRequest {
   /// maximum of 20 files attached to the assistant. Files
   /// are ordered by their creation date in ascending order.
   @JsonKey(name: "file_ids")
-  List<String> fileIds;
+  List<String>? fileIds;
 
   /// Set of 16 key-value pairs that can be attached to an object.
   /// This can be useful for storing additional information about
   /// the object in a structured format. Keys can be a maximum of
   /// 64 characters long and values can be a maxium of 512 characters long.
-  Map<String, dynamic> metadata;
+  Map<String, dynamic>? metadata;
 
   ModifyGptAssistantRequest(
       { this.name,
@@ -212,8 +212,8 @@ class ModifyGptAssistantRequest {
         required this.model,
         this.instructions,
         this.tools = const [],
-        required this.fileIds,
-        required this.metadata});
+        this.fileIds,
+        this.metadata});
 
   factory ModifyGptAssistantRequest.fromJson(Map<String, dynamic> json) =>
       _$ModifyGptAssistantRequestFromJson(json);
