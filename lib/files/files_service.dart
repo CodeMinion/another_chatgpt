@@ -99,7 +99,6 @@ class FilesService {
       return GptFile.fromJson(jsonDecode(
           const Utf8Decoder().convert(await response.stream.toBytes())));
     } else {
-      print("${const Utf8Decoder().convert(await response.stream.toBytes())}");
       var error = ServerError.fromJson(jsonDecode(
           const Utf8Decoder().convert(await response.stream.toBytes())));
       throw FilesException(

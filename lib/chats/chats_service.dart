@@ -3,9 +3,7 @@ import 'dart:convert';
 
 import 'package:another_chatgpt/error_models.dart';
 import 'package:http/http.dart' as http;
-
 import 'package:another_chatgpt/chats/chats_dto.dart';
-import 'package:another_chatgpt/completions/completions_dto.dart';
 
 class ChatsService {
 
@@ -17,7 +15,7 @@ class ChatsService {
   ///
   /// Creates a model response for the given chat conversation.
   ///
-  Future<GptCompletion> createChatCompletion({
+  Future<GptChatCompletion> createChatCompletion({
     required String apiKey,
     required String organizationId,
     required GptChatCompletionRequest request,
@@ -46,7 +44,7 @@ class ChatsService {
 
     if (response.statusCode == 200 || response.statusCode == 201) {
       //return GptCompletion.fromJson(jsonDecode(response.body));
-      return GptCompletion.fromJson(jsonDecode(const Utf8Decoder().convert(response.bodyBytes)));
+      return GptChatCompletion.fromJson(jsonDecode(const Utf8Decoder().convert(response.bodyBytes)));
     }
     else {
       var error = ServerError.fromJson(jsonDecode(response.body));

@@ -6,6 +6,39 @@ part of 'chats_dto.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+GptChatCompletion _$GptChatCompletionFromJson(Map<String, dynamic> json) =>
+    GptChatCompletion(
+      id: json['id'] as String,
+      object: json['object'] as String,
+      choices: (json['choices'] as List<dynamic>)
+          .map((e) => GptChoice.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      created: json['created'] as int,
+      usage: GptUsage.fromJson(json['usage'] as Map<String, dynamic>),
+      model: json['model'] as String,
+      systemFingerprint: json['system_fingerprint'] as String?,
+    );
+
+Map<String, dynamic> _$GptChatCompletionToJson(GptChatCompletion instance) {
+  final val = <String, dynamic>{
+    'id': instance.id,
+    'object': instance.object,
+    'created': instance.created,
+    'choices': instance.choices,
+    'usage': instance.usage,
+    'model': instance.model,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('system_fingerprint', instance.systemFingerprint);
+  return val;
+}
+
 GptChatCompletionRequest _$GptChatCompletionRequestFromJson(
         Map<String, dynamic> json) =>
     GptChatCompletionRequest(
@@ -13,14 +46,14 @@ GptChatCompletionRequest _$GptChatCompletionRequestFromJson(
       messages: (json['messages'] as List<dynamic>)
           .map((e) => GptMessage.fromJson(e as Map<String, dynamic>))
           .toList(),
-      temperature: json['temperature'] as int?,
+      temperature: (json['temperature'] as num?)?.toDouble(),
       user: json['user'] as String?,
       stream: json['stream'] as bool?,
       frequencyPenalty: json['frequency_penalty'] as int?,
       maxTokens: json['max_tokens'] as int?,
       n: json['n'] as int?,
       presencePenalty: json['presence_penalty'] as int?,
-      topP: json['top_p'] as int?,
+      topP: (json['top_p'] as num?)?.toDouble(),
     );
 
 Map<String, dynamic> _$GptChatCompletionRequestToJson(

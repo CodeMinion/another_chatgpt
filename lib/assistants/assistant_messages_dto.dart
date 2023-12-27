@@ -201,7 +201,7 @@ class CreateGptMessageRequest {
   /// Useful for tools like retrieval and code_interpreter that
   /// can access and use files.
   @JsonKey(name: "file_ids")
-  List<String> fileIds;
+  List<String>? fileIds;
 
   /// Set of 16 key-value pairs that can be attached to an object.
   /// This can be useful for storing additional information about
@@ -210,7 +210,7 @@ class CreateGptMessageRequest {
   Map<String, dynamic>? metadata;
 
   CreateGptMessageRequest(
-      {this.metadata, required this.fileIds, required this.content, required this.role});
+      {this.metadata, this.fileIds, required this.content, required this.role});
 
   factory CreateGptMessageRequest.fromJson(Map<String, dynamic> json) =>
       _$CreateGptMessageRequestFromJson(json);

@@ -92,7 +92,7 @@ class GptClient {
   ///
   /// Creates a model response for the given chat conversation.
   ///
-  Future<GptCompletion> createChatCompletion({
+  Future<GptChatCompletion> createChatCompletion({
     String? apiKey,
     String? organizationId,
     required GptChatCompletionRequest request,

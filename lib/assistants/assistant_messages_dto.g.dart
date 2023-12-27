@@ -182,8 +182,9 @@ CreateGptMessageRequest _$CreateGptMessageRequestFromJson(
         Map<String, dynamic> json) =>
     CreateGptMessageRequest(
       metadata: json['metadata'] as Map<String, dynamic>?,
-      fileIds:
-          (json['file_ids'] as List<dynamic>).map((e) => e as String).toList(),
+      fileIds: (json['file_ids'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
       content: json['content'] as String,
       role: $enumDecode(_$GptThreadRoleEnumMap, json['role']),
     );
@@ -193,7 +194,6 @@ Map<String, dynamic> _$CreateGptMessageRequestToJson(
   final val = <String, dynamic>{
     'role': _$GptThreadRoleEnumMap[instance.role]!,
     'content': instance.content,
-    'file_ids': instance.fileIds,
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -202,6 +202,7 @@ Map<String, dynamic> _$CreateGptMessageRequestToJson(
     }
   }
 
+  writeNotNull('file_ids', instance.fileIds);
   writeNotNull('metadata', instance.metadata);
   return val;
 }

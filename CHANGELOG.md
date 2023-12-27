@@ -40,3 +40,6 @@
 
 ## 4.2.0
 * Improved status reporting.
+
+## 5.0.0
+* Reworks assistant conversation.
